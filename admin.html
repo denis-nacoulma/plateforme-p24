@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Admin - P24</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f4f8; }
+        .navbar {
+            background: #1e3a8a;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar h1 { color: white; font-size: 18px; }
+        .navbar p { color: #93c5fd; font-size: 13px; }
+        .nav-links { display: flex; gap: 10px; }
+        .nav-links button {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .nav-links button:hover { background: white; color: #1e3a8a; }
+
+        /* LOGIN */
+        .login-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 60px);
+            padding: 20px;
+        }
+        .login-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #e5e7eb;
+            text-align: center;
+        }
+        .login-card .icon { font-size: 48px; margin-bottom: 16px; }
+        .login-card h2 { font-size: 22px; color: #1e3a8a; margin-bottom: 8px; }
+        .login-card p { font-size: 13px; color: #6b7280; margin-bottom: 24px; }
+        .form-group { margin-bottom: 16px; text-align: left; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+        .form-group input {
+            width: 100%; padding: 10px 14px;
+            border: 1px solid #d1d5db; border-radius: 8px;
+            font-size: 14px; outline: none;
+        }
+        .form-group input:focus { border-color: #1e3a8a; }
+        .btn-login {
+            width: 100%; padding: 12px;
+            background: #1e3a8a; color: white;
+            border: none; border-radius: 8px;
+            font-size: 15px; cursor: pointer;
+        }
+        .btn-login:hover { background: #1e40af; }
+        .msg-error {
+            background: #fee2e2; color: #991b1b;
+            padding: 10px; border-radius: 8px;
+            font-size: 13px; margin-bottom: 16px;
+            display: none; text-align: center;
+        }
+
+        /* PANEL */
+        .admin-panel { display: none; }
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+        .page-title { font-size: 22px; color: #1e3a8a; margin-bottom: 6px; }
+        .page-subtitle { font-size: 14px; color: #6b7280; margin-bottom: 24px; }
+
+        .stats-bar { display: flex; gap: 16px; margin-bottom: 30px; flex-wrap: wrap; }
+        .stat {
+            background: white; border-radius: 12px;
+            border: 1px solid #e5e7eb; padding: 16px 24px;
+            flex: 1; min-width: 150px;
+        }
+        .stat-label { font-size: 12px; color: #6b7280; margin-bottom: 4px; }
+        .stat-val { font-size: 24px; font-weight: 600; color: #1e3a8a; }
+
+        .tabs { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+        .tab {
+            padding: 10px 20px; border-radius: 10px;
+            border: 1px solid #d1d5db; background: white;
+            font-size: 13px; cursor: pointer; color: #374151;
+        }
+        .tab.active { background: #1e3a8a; color: white; border-color: #1e3a8a; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .section-card {
+            background: white; border-radius: 12px;
+            border: 1px solid #e5e7eb; overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .section-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            background: #f9fafb;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .section-header h3 { font-size: 15px; font-weight: 600; color: #1e3a8a; }
+        .section-body { padding: 20px; }
+
+        .fg { margin-bottom: 14px; }
+        .fg label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+        .fg input, .fg select, .fg textarea {
+            width: 100%; padding: 10px 14px;
+            border: 1px solid #d1d5db; border-radius: 8px;
+            font-size: 13px; outline: none;
+        }
+        .fg textarea { height: 80px; resize: vertical; }
+        .fg input:focus, .fg select:focus { border-color: #1e3a8a; }
+
+        .btn-submit {
+            width: 100%; padding: 12px;
+            background: #1e3a8a; color: white;
+            border: none; border-radius: 8px;
+            font-size: 14px; cursor: pointer;
+        }
+        .btn-submit:hover { background: #1e40af; }
+        .btn-submit:disabled { background: #93c5fd; cursor: not-allowed; }
+
+        .upload-zone {
+            border: 2px dashed #d1d5db; border-radius: 10px;
+            padding: 30px; text-align: center;
+            cursor: pointer; margin-bottom: 14px;
+            transition: border-color 0.2s;
+        }
+        .upload-zone:hover { border-color: #1e3a8a; background: #eff6ff; }
+        .upload-zone p { font-size: 13px; color: #6b7280; margin-top: 8px; }
+        .upload-zone input { display: none; }
+
+        .code-secret {
+            background: #f0fdf4; border: 1px solid #bbf7d0;
+            border-radius: 8px; padding: 12px 16px;
+            font-family: monospace; font-size: 15px;
+            color: #065f46; margin-top: 10px;
+            display: flex; justify-content: space-between;
+            align-items: center;
+        }
+        .btn-copier {
+            padding: 6px 12px; background: #1e3a8a;
+            color: white; border: none; border-radius: 6px;
+            font-size: 12px; cursor: pointer;
+        }
+
+        .etudiant-item {
+            display: flex; align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .etudiant-item:last-child { border-bottom: none; }
+        .etudiant-avatar {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: #dbeafe; display: flex; align-items: center;
+            justify-content: center; font-size: 16px; margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .etudiant-nom { font-size: 14px; font-weight: 600; color: #1e3a8a; }
+        .etudiant-info { font-size: 12px; color: #6b7280; margin-top: 2px; }
+
+        .chargement { text-align: center; padding: 40px; color: #6b7280; font-size: 14px; }
+
+        .footer {
+            text-align: center; padding: 20px; color: #9ca3af;
+            font-size: 13px; border-top: 1px solid #e5e7eb;
+            background: white; margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div>
+        <h1>⚙️ Espace Administrateur</h1>
+        <p>UFR-SEA Informatique · Promotion P24</p>
+    </div>
+    <div class="nav-links">
+        <button onclick="window.location='index.html'">🏠 Accueil</button>
+        <button onclick="window.location='emploidutemps.html'">📅 Emploi du temps</button>
+        <button onclick="window.location='cahier.html'">📓 Cahier</button>
+        <button onclick="window.location='cours.html'">📚 Cours</button>
+    </div>
+</nav>
+
+<!-- ECRAN DE CONNEXION -->
+<div class="login-screen" id="login-screen">
+    <div class="login-card">
+        <div class="icon">🔐</div>
+        <h2>Accès Administrateur</h2>
+        <p>Entrez vos identifiants pour accéder au panneau</p>
+        <div class="msg-error" id="msg-error">❌ Identifiants incorrects !</div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="admin-email" placeholder="admin@p24.edu" />
+        </div>
+        <div class="form-group">
+            <label>Mot de passe</label>
+            <input type="password" id="admin-password" placeholder="Mot de passe" />
+        </div>
+        <button class="btn-login" onclick="connexionAdmin()">Accéder au panneau</button>
+    </div>
+</div>
+
+<!-- PANNEAU ADMIN -->
+<div class="admin-panel" id="admin-panel">
+    <div class="container">
+        <div class="page-title">⚙️ Panneau d'administration</div>
+        <div class="page-subtitle">Gérez votre plateforme UFR-SEA Informatique P24</div>
+
+        <!-- STATS -->
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-label">👥 Étudiants inscrits</div>
+                <div class="stat-val" id="nb-etudiants">—</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">📄 Documents publiés</div>
+                <div class="stat-val" id="nb-docs">—</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">📓 Séances enregistrées</div>
+                <div class="stat-val" id="nb-seances">—</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">📢 Annonces</div>
+                <div class="stat-val" id="nb-annonces">—</div>
+            </div>
+        </div>
+
+        <!-- ONGLETS -->
+        <div class="tabs">
+            <button class="tab active" onclick="afficherOnglet('docs', this)">📄 Cours & Documents</button>
+            <button class="tab" onclick="afficherOnglet('etudiants', this)">👥 Étudiants</button>
+            <button class="tab" onclick="afficherOnglet('profs', this)">🔑 Codes Professeurs</button>
+            <button class="tab" onclick="afficherOnglet('annonces', this)">📢 Annonces</button>
+        </div>
+
+        <!-- ONGLET DOCUMENTS -->
+        <div class="tab-content active" id="tab-docs">
+            <div class="section-card">
+                <div class="section-header">
+                    <span>📄</span>
+                    <h3>Ajouter un cours ou exercice</h3>
+                </div>
+                <div class="section-body">
+                    <div class="fg">
+                        <label>Matière</label>
+                        <select id="upload-matiere">
+                            <option value="">-- Choisissez la matière --</option>
+                            <option value="ro">Recherche opérationnelle — M. Séré</option>
+                            <option value="sda">Structure de données avancée — M. Sawadogo</option>
+                            <option value="cn">Calcul numérique — M. Traoré</option>
+                            <option value="abd">Administration des bases de données — M. Kaboré</option>
+                            <option value="ar">Algèbre relationnelle — M. Kaboré</option>
+                            <option value="tc">Technique de compilation — Mme Sabané</option>
+                            <option value="pa">Programmation assembleur — M. Zeba</option>
+                            <option value="acsi">Analyse et conception des SI — M. Béré</option>
+                            <option value="ri">Introduction aux réseaux — M. Barra</option>
+                            <option value="ari">Administration des réseaux — M. Barra</option>
+                            <option value="gp">Gestion des processus — M. Somda</option>
+                            <option value="ps">Probabilité et statistique — M. Konkobo</option>
+                        </select>
+                    </div>
+                    <div class="fg">
+                        <label>Titre du document</label>
+                        <input type="text" id="upload-titre" placeholder="Ex: Cours Chapitre 1 — Introduction" />
+                    </div>
+                    <div class="fg">
+                        <label>Professeur</label>
+                        <select id="upload-prof">
+                            <option value="">-- Choisissez le professeur --</option>
+                            <option>M. Zoinabo Séré</option>
+                            <option>M. Léonard W. Sawadogo</option>
+                            <option>M. Urbain Traoré</option>
+                            <option>M. Kizito Kaboré</option>
+                            <option>Mme Aminata Sabané</option>
+                            <option>M. Ousmane Zeba</option>
+                            <option>M. Cédric Béré</option>
+                            <option>M. Ousmane Barra</option>
+                            <option>M. Flavien Somda</option>
+                            <option>M. Amidou Konkobo</option>
+                        </select>
+                    </div>
+                    <div class="fg">
+                        <label>Type de document</label>
+                        <select id="upload-type">
+                            <option value="Cours">📘 Cours</option>
+                            <option value="TD">📝 TD / Exercices</option>
+                            <option value="TP">💻 TP</option>
+                            <option value="Examen">📋 Examen / Partiel</option>
+                        </select>
+                    </div>
+                    <div class="fg">
+                        <label>Fichier PDF</label>
+                        <div class="upload-zone" onclick="document.getElementById('fichier-input').click()">
+                            <div style="font-size:36px;">📁</div>
+                            <p>Cliquez ici pour sélectionner un fichier PDF ou Word</p>
+                            <input type="file" id="fichier-input" accept=".pdf,.doc,.docx" onchange="afficherFichier(this)" />
+                        </div>
+                        <div id="fichier-nom" style="font-size:13px; color:#065f46; display:none; padding:8px; background:#f0fdf4; border-radius:8px;"></div>
+                    </div>
+                    <button class="btn-submit" id="btn-upload" onclick="publierDocument()">⬆️ Publier le document</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ONGLET ETUDIANTS -->
+        <div class="tab-content" id="tab-etudiants">
+            <div class="section-card">
+                <div class="section-header">
+                    <span>👥</span>
+                    <h3>Liste des étudiants inscrits</h3>
+                </div>
+                <div class="section-body">
+                    <div id="liste-etudiants">
+                        <div class="chargement">⏳ Chargement...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ONGLET CODES PROFS -->
+        <div class="tab-content" id="tab-profs">
+            <div class="section-card">
+                <div class="section-header">
+                    <span>🔑</span>
+                    <h3>Codes secrets des professeurs</h3>
+                </div>
+                <div class="section-body">
+                    <div class="fg">
+                        <label>Sélectionnez un professeur</label>
+                        <select id="prof-selectionne">
+                            <option value="">-- Choisissez un professeur --</option>
+                            <option value="Séré">M. Zoinabo Séré</option>
+                            <option value="Sawadogo">M. Léonard W. Sawadogo</option>
+                            <option value="Traoré">M. Urbain Traoré</option>
+                            <option value="Kaboré">M. Kizito Kaboré</option>
+                            <option value="Sabané">Mme Aminata Sabané</option>
+                            <option value="Zeba">M. Ousmane Zeba</option>
+                            <option value="Béré">M. Cédric Béré</option>
+                            <option value="Barra">M. Ousmane Barra</option>
+                            <option value="Somda">M. Flavien Somda</option>
+                            <option value="Konkobo">M. Amidou Konkobo</option>
+                        </select>
+                    </div>
+                    <button class="btn-submit" onclick="genererCode()">🔑 Générer le code secret</button>
+                    <div id="code-genere" style="display:none; margin-top:16px;">
+                        <div style="font-size:13px; color:#374151; margin-bottom:6px; font-weight:600;">Code secret généré :</div>
+                        <div class="code-secret">
+                            <span id="code-valeur"></span>
+                            <button class="btn-copier" onclick="copierCode()">📋 Copier</button>
+                        </div>
+                        <div style="font-size:12px; color:#6b7280; margin-top:8px;">⚠️ Partagez ce code uniquement avec le professeur concerné.</div>
+                    </div>
+
+                    <div style="margin-top:24px; border-top:1px solid #e5e7eb; padding-top:20px;">
+                        <div style="font-size:13px; font-weight:600; color:#374151; margin-bottom:10px;">🔐 Code actuel du cahier de texte :</div>
+                        <div class="code-secret">
+                            <span>prof2026</span>
+                            <span style="font-size:11px; color:#6b7280;">Code commun à tous les professeurs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ONGLET ANNONCES -->
+        <div class="tab-content" id="tab-annonces">
+            <div class="section-card">
+                <div class="section-header">
+                    <span>📢</span>
+                    <h3>Publier une annonce</h3>
+                </div>
+                <div class="section-body">
+                    <div class="fg">
+                        <label>Type d'annonce</label>
+                        <select id="annonce-type">
+                            <option value="info">ℹ️ Information générale</option>
+                            <option value="exam">📋 Examen / Partiel</option>
+                            <option value="rendu">📝 Rendu de TP / Devoir</option>
+                            <option value="annulation">❌ Annulation de cours</option>
+                        </select>
+                    </div>
+                    <div class="fg">
+                        <label>Titre de l'annonce</label>
+                        <input type="text" id="annonce-titre" placeholder="Ex: Partiel Algorithmique — Salle B12" />
+                    </div>
+                    <div class="fg">
+                        <label>Date concernée</label>
+                        <input type="date" id="annonce-date" />
+                    </div>
+                    <div class="fg">
+                        <label>Description détaillée</label>
+                        <textarea id="annonce-desc" placeholder="Donnez les détails importants..."></textarea>
+                    </div>
+                    <button class="btn-submit" onclick="publierAnnonce()">📢 Publier l'annonce</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="footer">
+    UFR-SEA · Informatique · P24 · Université Joseph Ki-Zerbo · Ouagadougou
+</div>
+
+<script src="supabase.js"></script>
+<script>
+    const ADMIN_EMAIL = "admin@p24.edu";
+    const ADMIN_PASSWORD = "Admin@P24#2026";
+
+    // CONNEXION
+    function connexionAdmin() {
+        const email = document.getElementById('admin-email').value.trim();
+        const password = document.getElementById('admin-password').value;
+        if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'block';
+            chargerStats();
+            chargerEtudiants();
+        } else {
+            document.getElementById('msg-error').style.display = 'block';
+        }
+    }
+
+    // ONGLETS
+    function afficherOnglet(nom, btn) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + nom).classList.add('active');
+        if (nom === 'etudiants') chargerEtudiants();
+    }
+
+    // STATS
+    async function chargerStats() {
+        try {
+            const etudiants = await getEtudiants();
+            const docs = await getDocuments();
+            const seances = await getSeances();
+            const annonces = await getAnnonces();
+            document.getElementById('nb-etudiants').textContent = etudiants.length;
+            document.getElementById('nb-docs').textContent = docs.length;
+            document.getElementById('nb-seances').textContent = seances.length;
+            document.getElementById('nb-annonces').textContent = annonces.length;
+        } catch(e) {}
+    }
+
+    // ETUDIANTS
+    async function chargerEtudiants() {
+        try {
+            const etudiants = await getEtudiants();
+            const liste = document.getElementById('liste-etudiants');
+            if (!etudiants || etudiants.length === 0) {
+                liste.innerHTML = '<div class="chargement">👤 Aucun étudiant inscrit pour le moment.</div>';
+                return;
+            }
+            liste.innerHTML = etudiants.map(e => `
+                <div class="etudiant-item">
+                    <div class="etudiant-avatar">👤</div>
+                    <div>
+                        <div class="etudiant-nom">${e.nom}</div>
+                        <div class="etudiant-info">${e.email} · N° ${e.numero}</div>
+                    </div>
+                </div>
+            `).join('');
+        } catch(e) {
+            document.getElementById('liste-etudiants').innerHTML =
+                '<div class="chargement">❌ Erreur de chargement.</div>';
+        }
+    }
+
+    // UPLOAD DOCUMENT
+    function afficherFichier(input) {
+        const nom = document.getElementById('fichier-nom');
+        if (input.files.length > 0) {
+            nom.style.display = 'block';
+            nom.textContent = '✅ Fichier sélectionné : ' + input.files[0].name;
+        }
+    }
+
+    async function publierDocument() {
+        const matiere = document.getElementById('upload-matiere').value;
+        const titre = document.getElementById('upload-titre').value.trim();
+        const prof = document.getElementById('upload-prof').value;
+        const type = document.getElementById('upload-type').value;
+        const fichier = document.getElementById('fichier-input').files[0];
+        const btn = document.getElementById('btn-upload');
+
+        if (!matiere || !titre || !prof || !fichier) {
+            alert('⚠️ Veuillez remplir tous les champs et sélectionner un fichier !');
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = '⏳ Publication en cours...';
+
+        try {
+            const nomFichier = Date.now() + '_' + fichier.name.replace(/\s/g, '_');
+            const urlFichier = await uploadPDF(fichier, nomFichier);
+            if (urlFichier) {
+                await ajouterDocument(titre, matiere, type, prof, urlFichier);
+                alert('✅ Document "' + titre + '" publié avec succès !');
+                document.getElementById('upload-matiere').value = '';
+                document.getElementById('upload-titre').value = '';
+                document.getElementById('upload-prof').value = '';
+                document.getElementById('fichier-input').value = '';
+                document.getElementById('fichier-nom').style.display = 'none';
+                chargerStats();
+            } else {
+                alert('❌ Erreur lors de l\'upload. Vérifiez le bucket Supabase.');
+            }
+        } catch(e) {
+            alert('❌ Erreur : ' + e.message);
+        }
+
+        btn.disabled = false;
+        btn.textContent = '⬆️ Publier le document';
+    }
+
+    // CODES PROFS
+    function genererCode() {
+        const prof = document.getElementById('prof-selectionne').value;
+        if (!prof) { alert('Veuillez sélectionner un professeur !'); return; }
+        const code = 'PROF-' + prof.toUpperCase().substring(0,3) + '-' +
+            Math.random().toString(36).substring(2,7).toUpperCase();
+        document.getElementById('code-valeur').textContent = code;
+        document.getElementById('code-genere').style.display = 'block';
+    }
+
+    function copierCode() {
+        const code = document.getElementById('code-valeur').textContent;
+        navigator.clipboard.writeText(code);
+        alert('✅ Code copié : ' + code);
+    }
+
+    // ANNONCES
+    async function publierAnnonce() {
+        const titre = document.getElementById('annonce-titre').value.trim();
+        const type = document.getElementById('annonce-type').value;
+        const date = document.getElementById('annonce-date').value;
+        const desc = document.getElementById('annonce-desc').value;
+
+        if (!titre || !date) {
+            alert('⚠️ Veuillez remplir le titre et la date !');
+            return;
+        }
+
+        try {
+            await ajouterAnnonce(titre, type, date, desc);
+            alert('✅ Annonce publiée avec succès !');
+            document.getElementById('annonce-titre').value = '';
+            document.getElementById('annonce-date').value = '';
+            document.getElementById('annonce-desc').value = '';
+            chargerStats();
+        } catch(e) {
+            alert('❌ Erreur lors de la publication !');
+        }
+    }
+</script>
+
+</body>
+</html>

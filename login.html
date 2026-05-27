@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - P24</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f4f8; display: flex; flex-direction: column; min-height: 100vh; }
+        .navbar {
+            background: #1a56db;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar h1 { color: white; font-size: 18px; }
+        .navbar p { color: #bfdbfe; font-size: 13px; }
+        .container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            border: 1px solid #e5e7eb;
+        }
+        .card h2 { font-size: 22px; color: #1e3a8a; margin-bottom: 6px; text-align: center; }
+        .card p { font-size: 13px; color: #6b7280; text-align: center; margin-bottom: 28px; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+        .form-group input {
+            width: 100%; padding: 10px 14px;
+            border: 1px solid #d1d5db; border-radius: 8px;
+            font-size: 14px; outline: none;
+        }
+        .form-group input:focus { border-color: #1a56db; }
+        .btn {
+            width: 100%; padding: 12px;
+            background: #1a56db; color: white;
+            border: none; border-radius: 8px;
+            font-size: 15px; cursor: pointer; margin-top: 8px;
+        }
+        .btn:hover { background: #1e40af; }
+        .btn:disabled { background: #93c5fd; cursor: not-allowed; }
+        .link { text-align: center; margin-top: 20px; font-size: 13px; color: #6b7280; }
+        .link a { color: #1a56db; text-decoration: none; font-weight: 600; }
+        .msg-error {
+            background: #fee2e2; color: #991b1b;
+            padding: 12px; border-radius: 8px;
+            font-size: 13px; margin-bottom: 16px;
+            display: none; text-align: center;
+        }
+        .footer {
+            text-align: center; padding: 20px; color: #9ca3af;
+            font-size: 13px; border-top: 1px solid #e5e7eb; background: white;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div>
+        <h1>UFR-SEA Informatique</h1>
+        <p>Université Joseph Ki-Zerbo · Promotion P24</p>
+    </div>
+    <div>
+        <button onclick="window.location='index.html'" style="background:transparent; border:1px solid white; color:white; padding:8px 16px; border-radius:8px; cursor:pointer;">Accueil</button>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card">
+        <h2>Connexion</h2>
+        <p>Accédez à votre espace étudiant</p>
+
+        <div class="msg-error" id="msg-error"></div>
+
+        <div class="form-group">
+            <label>Adresse email</label>
+            <input type="email" id="email" placeholder="votre@email.com" />
+        </div>
+        <div class="form-group">
+            <label>Mot de passe</label>
+            <input type="password" id="password" placeholder="Votre mot de passe" />
+        </div>
+
+        <button class="btn" id="btn-connexion" onclick="seConnecter()">Se connecter</button>
+
+        <div class="link">
+            Pas encore de compte ? <a href="inscription.html">Créer un compte</a>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    UFR-SEA · Informatique · P24 · Université Joseph Ki-Zerbo · Ouagadougou
+</div>
+
+<script src="supabase.js"></script>
+<script>
+    async function seConnecter() {
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const btn = document.getElementById('btn-connexion');
+        const msgError = document.getElementById('msg-error');
+
+        msgError.style.display = 'none';
+
+        if (!email || !password) {
+            msgError.style.display = 'block';
+            msgError.textContent = '❌ Veuillez remplir tous les champs !';
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Connexion en cours...';
+
+        try {
+            const etudiant = await connecterEtudiant(email, password);
+            if (etudiant) {
+                localStorage.setItem('etudiant', JSON.stringify(etudiant));
+                window.location = 'emploidutemps.html';
+            } else {
+                msgError.style.display = 'block';
+                msgError.textContent = '❌ Email ou mot de passe incorrect !';
+                btn.disabled = false;
+                btn.textContent = 'Se connecter';
+            }
+        } catch(e) {
+            msgError.style.display = 'block';
+            msgError.textContent = '❌ Erreur de connexion. Vérifiez votre internet !';
+            btn.disabled = false;
+            btn.textContent = 'Se connecter';
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UFR-SEA Informatique P24</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f4f8; }
+
+        .navbar {
+            background: #1a56db;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar h1 { color: white; font-size: 18px; }
+        .navbar p { color: #bfdbfe; font-size: 13px; }
+
+        .hero {
+            background: white;
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .hero h2 { font-size: 28px; color: #1e3a8a; margin-bottom: 10px; }
+        .hero p { color: #6b7280; font-size: 16px; margin-bottom: 30px; }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            border: none;
+            margin: 5px;
+        }
+        .btn-blue { background: #1a56db; color: white; }
+        .btn-white { background: white; color: #1a56db; border: 1px solid #1a56db; }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 40px 30px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e5e7eb;
+            text-align: center;
+        }
+        .card-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+        .card h3 { font-size: 16px; color: #1e3a8a; margin-bottom: 8px; }
+        .card p { font-size: 13px; color: #6b7280; }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #9ca3af;
+            font-size: 13px;
+            border-top: 1px solid #e5e7eb;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div>
+        <h1>UFR-SEA Informatique</h1>
+        <p>Université Joseph Ki-Zerbo · Promotion P24</p>
+    </div>
+    <div>
+        <button class="btn btn-white" onclick="window.location='login.html'">Connexion</button>
+    </div>
+</nav>
+
+<div class="hero">
+    <h2>Bienvenue sur la plateforme P24</h2>
+    <p>Consultez votre emploi du temps, le cahier de texte et téléchargez vos cours.</p>
+    <button class="btn btn-blue" onclick="window.location='inscription.html'">Créer mon compte</button>
+    <button class="btn btn-white" onclick="window.location='login.html'">Se connecter</button>
+</div>
+
+<div class="cards">
+    <div class="card">
+        <div class="card-icon">📅</div>
+        <h3>Emploi du temps</h3>
+        <p>Consultez le planning de la semaine en cours</p>
+    </div>
+    <div class="card">
+        <div class="card-icon">📓</div>
+        <h3>Cahier de texte</h3>
+        <p>Suivez les séances et la présence des professeurs</p>
+    </div>
+    <div class="card">
+        <div class="card-icon">📚</div>
+        <h3>Cours & Exercices</h3>
+        <p>Téléchargez vos PDF et documents de cours</p>
+    </div>
+    <div class="card">
+        <div class="card-icon">📢</div>
+        <h3>Annonces</h3>
+        <p>Restez informé des examens et événements</p>
+    </div>
+</div>
+
+<div class="footer">
+    UFR-SEA · Informatique · P24 · Université Joseph Ki-Zerbo · Ouagadougou
+</div>
+
+</body>
+</html>

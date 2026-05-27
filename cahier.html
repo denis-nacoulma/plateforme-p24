@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cahier de texte - P24</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f4f8; }
+        .navbar {
+            background: #1a56db;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar h1 { color: white; font-size: 18px; }
+        .navbar p { color: #bfdbfe; font-size: 13px; }
+        .nav-links { display: flex; gap: 10px; }
+        .nav-links button {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .nav-links button:hover { background: white; color: #1a56db; }
+        .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+        .page-title { font-size: 22px; color: #1e3a8a; margin-bottom: 6px; }
+        .page-subtitle { font-size: 14px; color: #6b7280; margin-bottom: 24px; }
+        .prof-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+        .prof-tab {
+            padding: 8px 18px; border-radius: 20px;
+            border: 1px solid #d1d5db; background: white;
+            font-size: 13px; cursor: pointer; color: #374151;
+        }
+        .prof-tab.active { background: #1a56db; color: white; border-color: #1a56db; }
+        .seances { display: flex; flex-direction: column; gap: 16px; }
+        .seance-card {
+            background: white; border-radius: 12px;
+            border: 1px solid #e5e7eb; overflow: hidden;
+        }
+        .seance-header {
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            background: #f9fafb;
+        }
+        .seance-header-left { display: flex; align-items: center; gap: 12px; }
+        .seance-date {
+            background: #1a56db; color: white;
+            padding: 6px 12px; border-radius: 8px;
+            font-size: 13px; font-weight: 600;
+        }
+        .seance-prof { font-size: 15px; font-weight: 600; color: #1e3a8a; }
+        .seance-matiere { font-size: 13px; color: #6b7280; }
+        .badge-present { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .present { background: #d1fae5; color: #065f46; }
+        .seance-body { padding: 16px 20px; }
+        .seance-body p { font-size: 14px; color: #374151; line-height: 1.6; }
+        .seance-body .label { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 4px; margin-top: 12px; }
+        .lien-prof {
+            background: #eff6ff; border: 1px solid #bfdbfe;
+            border-radius: 12px; padding: 20px; margin-bottom: 24px;
+        }
+        .lien-prof h3 { font-size: 15px; color: #1e3a8a; margin-bottom: 8px; }
+        .lien-prof p { font-size: 13px; color: #6b7280; margin-bottom: 12px; }
+        .lien-prof input {
+            width: 100%; padding: 10px 14px;
+            border: 1px solid #d1d5db; border-radius: 8px;
+            font-size: 14px; margin-bottom: 10px;
+        }
+        .btn { padding: 10px 20px; background: #1a56db; color: white; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; }
+        .btn:hover { background: #1e40af; }
+        .formulaire-prof {
+            background: white; border-radius: 12px;
+            border: 2px solid #1a56db; padding: 24px;
+            margin-bottom: 24px; display: none;
+        }
+        .formulaire-prof h3 { font-size: 16px; color: #1e3a8a; margin-bottom: 16px; }
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 10px 14px;
+            border: 1px solid #d1d5db; border-radius: 8px;
+            font-size: 14px; outline: none;
+        }
+        .form-group textarea { height: 100px; resize: vertical; }
+        .chargement { text-align: center; padding: 40px; color: #6b7280; font-size: 14px; }
+        .footer {
+            text-align: center; padding: 20px; color: #9ca3af;
+            font-size: 13px; border-top: 1px solid #e5e7eb;
+            background: white; margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div>
+        <h1>UFR-SEA Informatique</h1>
+        <p>Université Joseph Ki-Zerbo · Promotion P24</p>
+    </div>
+    <div class="nav-links">
+        <button onclick="window.location='index.html'">🏠 Accueil</button>
+        <button onclick="window.location='emploidutemps.html'">📅 Emploi du temps</button>
+        <button onclick="window.location='cours.html'">📚 Cours</button>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="page-title">📓 Cahier de texte</div>
+    <div class="page-subtitle">Suivi des séances et présence des professeurs · Promotion P24</div>
+
+    <div class="lien-prof">
+        <h3>🔐 Espace Professeur</h3>
+        <p>Si vous êtes professeur, entrez votre code secret pour signer le cahier de texte.</p>
+        <input type="password" id="code-prof" placeholder="Entrez votre code secret..." />
+        <button class="btn" onclick="verifierCode()">Accéder au formulaire</button>
+    </div>
+
+    <div class="formulaire-prof" id="formulaire-prof">
+        <h3>✍️ Signer le cahier de texte</h3>
+        <div class="form-group">
+            <label>Votre nom</label>
+            <select id="prof-nom">
+                <option value="">-- Choisissez votre nom --</option>
+                <option>M. Zoinabo Séré</option>
+                <option>M. Léonard W. Sawadogo</option>
+                <option>M. Urbain Traoré</option>
+                <option>M. Kizito Kaboré</option>
+                <option>Mme Aminata Sabané</option>
+                <option>M. Ousmane Zeba</option>
+                <option>M. Cédric Béré</option>
+                <option>M. Ousmane Barra</option>
+                <option>M. Flavien Somda</option>
+                <option>M. Amidou Konkobo</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Matière enseignée</label>
+            <select id="prof-matiere">
+                <option value="">-- Choisissez la matière --</option>
+                <option>Recherche opérationnelle</option>
+                <option>Structure de données avancée</option>
+                <option>Calcul numérique</option>
+                <option>Administration des bases de données</option>
+                <option>Algèbre relationnelle</option>
+                <option>Technique de compilation</option>
+                <option>Programmation assembleur</option>
+                <option>Analyse et conception des SI</option>
+                <option>Introduction aux réseaux informatiques</option>
+                <option>Administration des réseaux informatiques</option>
+                <option>Gestion des processus</option>
+                <option>Probabilité et statistique</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Date de la séance</label>
+            <input type="date" id="prof-date" />
+        </div>
+        <div class="form-group">
+            <label>Horaire</label>
+            <select id="prof-horaire">
+                <option>07h30 - 09h30</option>
+                <option>09h30 - 11h30</option>
+                <option>11h30 - 13h00</option>
+                <option>15h00 - 17h00</option>
+                <option>17h00 - 19h00</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Contenu du cours</label>
+            <textarea id="prof-contenu" placeholder="Décrivez ce qui a été fait pendant la séance..."></textarea>
+        </div>
+        <div class="form-group">
+            <label>Travaux à faire</label>
+            <textarea id="prof-travaux" placeholder="Exercices, TP, devoirs à rendre..."></textarea>
+        </div>
+        <button class="btn" onclick="signerCahier()">✅ Signer et enregistrer</button>
+    </div>
+
+    <div class="prof-tabs">
+        <button class="prof-tab active" onclick="filtrerProf('tous', this)">Tous</button>
+        <button class="prof-tab" onclick="filtrerProf('Séré', this)">M. Séré</button>
+        <button class="prof-tab" onclick="filtrerProf('Sawadogo', this)">M. Sawadogo</button>
+        <button class="prof-tab" onclick="filtrerProf('Traoré', this)">M. Traoré</button>
+        <button class="prof-tab" onclick="filtrerProf('Kaboré', this)">M. Kaboré</button>
+        <button class="prof-tab" onclick="filtrerProf('Sabané', this)">Mme Sabané</button>
+        <button class="prof-tab" onclick="filtrerProf('Zeba', this)">M. Zeba</button>
+        <button class="prof-tab" onclick="filtrerProf('Béré', this)">M. Béré</button>
+        <button class="prof-tab" onclick="filtrerProf('Barra', this)">M. Barra</button>
+        <button class="prof-tab" onclick="filtrerProf('Somda', this)">M. Somda</button>
+        <button class="prof-tab" onclick="filtrerProf('Konkobo', this)">M. Konkobo</button>
+    </div>
+
+    <div class="seances" id="seances">
+        <div class="chargement">⏳ Chargement des séances...</div>
+    </div>
+</div>
+
+<div class="footer">
+    UFR-SEA · Informatique · P24 · Université Joseph Ki-Zerbo · Ouagadougou
+</div>
+
+<script src="supabase.js"></script>
+<script>
+    const CODE_SECRET = "prof2026";
+    let toutesLesSeances = [];
+
+    // Charger les séances depuis Supabase
+    async function chargerSeances() {
+        try {
+            const seances = await getSeances();
+            toutesLesSeances = seances;
+            afficherSeances(seances);
+        } catch(e) {
+            document.getElementById('seances').innerHTML =
+                '<div class="chargement">❌ Erreur de chargement. Vérifiez votre connexion.</div>';
+        }
+    }
+
+    function afficherSeances(seances) {
+        const container = document.getElementById('seances');
+        if (!seances || seances.length === 0) {
+            container.innerHTML = '<div class="chargement">📭 Aucune séance enregistrée pour le moment.</div>';
+            return;
+        }
+        container.innerHTML = seances.map(s => {
+            const date = new Date(s.date_seance).toLocaleDateString('fr-FR', {
+                day: 'numeric', month: 'long', year: 'numeric'
+            });
+            const nomCourt = s.professeur.split(' ').pop();
+            return `
+                <div class="seance-card" data-prof="${nomCourt}">
+                    <div class="seance-header">
+                        <div class="seance-header-left">
+                            <div class="seance-date">${date}</div>
+                            <div>
+                                <div class="seance-prof">${s.professeur}</div>
+                                <div class="seance-matiere">${s.matiere} · ${s.horaire}</div>
+                            </div>
+                        </div>
+                        <span class="badge-present present">✅ Présent</span>
+                    </div>
+                    <div class="seance-body">
+                        <div class="label">Contenu du cours :</div>
+                        <p>${s.contenu}</p>
+                        <div class="label">Travaux à faire :</div>
+                        <p>${s.travaux || 'Aucun'}</p>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function verifierCode() {
+        const code = document.getElementById('code-prof').value;
+        if (code === CODE_SECRET) {
+            document.getElementById('formulaire-prof').style.display = 'block';
+            alert('Accès autorisé !');
+        } else {
+            alert('Code incorrect ! Contactez l\'administrateur.');
+        }
+    }
+
+    async function signerCahier() {
+        const nom = document.getElementById('prof-nom').value;
+        const matiere = document.getElementById('prof-matiere').value;
+        const date = document.getElementById('prof-date').value;
+        const horaire = document.getElementById('prof-horaire').value;
+        const contenu = document.getElementById('prof-contenu').value;
+        const travaux = document.getElementById('prof-travaux').value;
+
+        if (!nom || !matiere || !date || !contenu) {
+            alert('Veuillez remplir tous les champs obligatoires !');
+            return;
+        }
+
+        try {
+            await ajouterSeance(nom, matiere, date, horaire, contenu, travaux);
+            alert('✅ Séance enregistrée avec succès !');
+            document.getElementById('formulaire-prof').style.display = 'none';
+            document.getElementById('prof-nom').value = '';
+            document.getElementById('prof-matiere').value = '';
+            document.getElementById('prof-date').value = '';
+            document.getElementById('prof-contenu').value = '';
+            document.getElementById('prof-travaux').value = '';
+            chargerSeances();
+        } catch(e) {
+            alert('❌ Erreur lors de l\'enregistrement !');
+        }
+    }
+
+    function filtrerProf(prof, btn) {
+        document.querySelectorAll('.prof-tab').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        if (prof === 'tous') {
+            afficherSeances(toutesLesSeances);
+        } else {
+            const filtrees = toutesLesSeances.filter(s => s.professeur.includes(prof));
+            afficherSeances(filtrees);
+        }
+    }
+
+    // Charger au démarrage
+    chargerSeances();
+</script>
+
+</body>
+</html>

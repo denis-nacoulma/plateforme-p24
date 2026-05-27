@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours & Exercices - P24</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f4f8; }
+        .navbar {
+            background: #1a56db;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar h1 { color: white; font-size: 18px; }
+        .navbar p { color: #bfdbfe; font-size: 13px; }
+        .nav-links { display: flex; gap: 10px; }
+        .nav-links button {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .nav-links button:hover { background: white; color: #1a56db; }
+        .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+        .page-title { font-size: 22px; color: #1e3a8a; margin-bottom: 6px; }
+        .page-subtitle { font-size: 14px; color: #6b7280; margin-bottom: 24px; }
+        .filtres { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+        .filtre-btn {
+            padding: 8px 18px; border-radius: 20px;
+            border: 1px solid #d1d5db; background: white;
+            font-size: 13px; cursor: pointer; color: #374151;
+        }
+        .filtre-btn.active { background: #1a56db; color: white; border-color: #1a56db; }
+        .search-bar { display: flex; gap: 10px; margin-bottom: 24px; }
+        .search-bar input {
+            flex: 1; padding: 10px 16px;
+            border: 1px solid #d1d5db; border-radius: 8px;
+            font-size: 14px; outline: none;
+        }
+        .search-bar input:focus { border-color: #1a56db; }
+        .cours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .cours-card {
+            background: white; border-radius: 12px;
+            border: 1px solid #e5e7eb; overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+        .cours-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .cours-card-header {
+            padding: 16px; display: flex;
+            align-items: center; gap: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .file-icon {
+            width: 44px; height: 44px; border-radius: 10px;
+            display: flex; align-items: center;
+            justify-content: center; font-size: 22px; flex-shrink: 0;
+        }
+        .file-icon.pdf { background: #fee2e2; }
+        .file-icon.doc { background: #dbeafe; }
+        .cours-info h3 { font-size: 14px; font-weight: 600; color: #1e3a8a; margin-bottom: 4px; }
+        .cours-info p { font-size: 12px; color: #6b7280; }
+        .cours-card-body { padding: 12px 16px; }
+        .cours-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .cours-tag { padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .cours-size { font-size: 12px; color: #9ca3af; }
+        .btn-telecharger {
+            width: 100%; padding: 10px; background: #1a56db;
+            color: white; border: none; border-radius: 8px;
+            font-size: 13px; cursor: pointer;
+            display: flex; align-items: center;
+            justify-content: center; gap: 6px;
+            text-decoration: none;
+        }
+        .btn-telecharger:hover { background: #1e40af; }
+        .stats-bar { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+        .stat {
+            background: white; border-radius: 10px;
+            border: 1px solid #e5e7eb; padding: 12px 20px;
+            font-size: 13px; color: #374151;
+        }
+        .stat span { font-weight: 600; color: #1a56db; font-size: 18px; display: block; }
+        .chargement { text-align: center; padding: 60px; color: #6b7280; font-size: 14px; }
+        .footer {
+            text-align: center; padding: 20px; color: #9ca3af;
+            font-size: 13px; border-top: 1px solid #e5e7eb;
+            background: white; margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div>
+        <h1>UFR-SEA Informatique</h1>
+        <p>Université Joseph Ki-Zerbo · Promotion P24</p>
+    </div>
+    <div class="nav-links">
+        <button onclick="window.location='index.html'">🏠 Accueil</button>
+        <button onclick="window.location='emploidutemps.html'">📅 Emploi du temps</button>
+        <button onclick="window.location='cahier.html'">📓 Cahier de texte</button>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="page-title">📚 Cours & Exercices</div>
+    <div class="page-subtitle">Téléchargez vos cours et exercices · Promotion P24</div>
+
+    <div class="stats-bar">
+        <div class="stat"><span id="nb-docs">0</span>Documents disponibles</div>
+        <div class="stat"><span>12</span>Matières</div>
+        <div class="stat"><span>10</span>Professeurs</div>
+    </div>
+
+    <div class="search-bar">
+        <input type="text" id="recherche" placeholder="🔍 Rechercher un cours, une matière, un professeur..." oninput="rechercher()" />
+    </div>
+
+    <div class="filtres">
+        <button class="filtre-btn active" onclick="filtrer('tous', this)">Tous</button>
+        <button class="filtre-btn" onclick="filtrer('ro', this)">Recherche opérationnelle</button>
+        <button class="filtre-btn" onclick="filtrer('sda', this)">Structure de données</button>
+        <button class="filtre-btn" onclick="filtrer('cn', this)">Calcul numérique</button>
+        <button class="filtre-btn" onclick="filtrer('abd', this)">Admin. BDD</button>
+        <button class="filtre-btn" onclick="filtrer('ar', this)">Algèbre relationnelle</button>
+        <button class="filtre-btn" onclick="filtrer('tc', this)">Technique compilation</button>
+        <button class="filtre-btn" onclick="filtrer('pa', this)">Prog. assembleur</button>
+        <button class="filtre-btn" onclick="filtrer('acsi', this)">Analyse conception SI</button>
+        <button class="filtre-btn" onclick="filtrer('ri', this)">Réseaux info.</button>
+        <button class="filtre-btn" onclick="filtrer('gp', this)">Gestion processus</button>
+        <button class="filtre-btn" onclick="filtrer('ps', this)">Probabilité & stat.</button>
+    </div>
+
+    <div class="cours-grid" id="cours-grid">
+        <div class="chargement" style="grid-column:1/-1">⏳ Chargement des documents...</div>
+    </div>
+</div>
+
+<div class="footer">
+    UFR-SEA · Informatique · P24 · Université Joseph Ki-Zerbo · Ouagadougou
+</div>
+
+<script src="supabase.js"></script>
+<script>
+    let tousLesDocuments = [];
+    let filtreActuel = 'tous';
+
+    const couleurs = {
+        'ro': '#dbeafe', 'sda': '#d1fae5', 'cn': '#fef3c7',
+        'abd': '#ede9fe', 'ar': '#fee2e2', 'tc': '#fce7f3',
+        'pa': '#ecfdf5', 'acsi': '#fff7ed', 'ri': '#f0fdf4',
+        'ari': '#faf5ff', 'gp': '#fff1f2', 'ps': '#f0f9ff'
+    };
+
+    const couleurTexte = {
+        'ro': '#1e40af', 'sda': '#065f46', 'cn': '#92400e',
+        'abd': '#4c1d95', 'ar': '#991b1b', 'tc': '#9d174d',
+        'pa': '#064e3b', 'acsi': '#9a3412', 'ri': '#14532d',
+        'ari': '#581c87', 'gp': '#881337', 'ps': '#0c4a6e'
+    };
+
+    async function chargerDocuments() {
+        try {
+            const docs = await getDocuments();
+            tousLesDocuments = docs;
+            document.getElementById('nb-docs').textContent = docs.length;
+            afficherDocuments(docs);
+        } catch(e) {
+            document.getElementById('cours-grid').innerHTML =
+                '<div class="chargement" style="grid-column:1/-1">❌ Erreur de chargement.</div>';
+        }
+    }
+
+    function afficherDocuments(docs) {
+        const grid = document.getElementById('cours-grid');
+        if (!docs || docs.length === 0) {
+            grid.innerHTML = `
+                <div style="grid-column:1/-1; text-align:center; padding:60px 20px; color:#9ca3af;">
+                    <div style="font-size:48px; margin-bottom:16px;">📂</div>
+                    <div style="font-size:16px; font-weight:600; color:#6b7280; margin-bottom:8px;">Aucun document disponible</div>
+                    <div style="font-size:14px;">Les cours seront ajoutés par l'administrateur.</div>
+                </div>`;
+            return;
+        }
+        grid.innerHTML = docs.map(doc => {
+            const date = new Date(doc.date_ajout).toLocaleDateString('fr-FR', {
+                day: 'numeric', month: 'long', year: 'numeric'
+            });
+            const bg = couleurs[doc.matiere] || '#f3f4f6';
+            const txt = couleurTexte[doc.matiere] || '#374151';
+            const icone = doc.url_fichier && doc.url_fichier.endsWith('.pdf') ? '📄' : '📘';
+            return `
+                <div class="cours-card" data-matiere="${doc.matiere}">
+                    <div class="cours-card-header">
+                        <div class="file-icon pdf">${icone}</div>
+                        <div class="cours-info">
+                            <h3>${doc.titre}</h3>
+                            <p>${doc.professeur} · ${date}</p>
+                        </div>
+                    </div>
+                    <div class="cours-card-body">
+                        <div class="cours-meta">
+                            <span class="cours-tag" style="background:${bg}; color:${txt}">${doc.type_doc}</span>
+                        </div>
+                        <a class="btn-telecharger" href="${doc.url_fichier}" target="_blank">⬇️ Télécharger</a>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function filtrer(matiere, btn) {
+        document.querySelectorAll('.filtre-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filtreActuel = matiere;
+        if (matiere === 'tous') {
+            afficherDocuments(tousLesDocuments);
+        } else {
+            afficherDocuments(tousLesDocuments.filter(d => d.matiere === matiere));
+        }
+    }
+
+    function rechercher() {
+        const terme = document.getElementById('recherche').value.toLowerCase();
+        afficherDocuments(tousLesDocuments.filter(d =>
+            d.titre.toLowerCase().includes(terme) ||
+            d.professeur.toLowerCase().includes(terme) ||
+            d.matiere.toLowerCase().includes(terme)
+        ));
+    }
+
+    chargerDocuments();
+</script>
+
+</body>
+</html>

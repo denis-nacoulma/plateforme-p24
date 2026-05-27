@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emploi du temps - P24</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f4f8; }
+        .navbar {
+            background: #1a56db;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar h1 { color: white; font-size: 18px; }
+        .navbar p { color: #bfdbfe; font-size: 13px; }
+        .nav-links { display: flex; gap: 10px; }
+        .nav-links button {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .nav-links button:hover { background: white; color: #1a56db; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .page-title { font-size: 22px; color: #1e3a8a; margin-bottom: 6px; }
+        .page-subtitle { font-size: 14px; color: #6b7280; margin-bottom: 24px; }
+        .semaine-nav { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+        .semaine-nav button {
+            background: white; border: 1px solid #d1d5db;
+            padding: 8px 16px; border-radius: 8px;
+            cursor: pointer; font-size: 13px; color: #374151;
+        }
+        .semaine-nav button:hover { background: #f3f4f6; }
+        .semaine-label { font-size: 15px; font-weight: 600; color: #1e3a8a; }
+        .tableau-container {
+            background: white; border-radius: 16px;
+            border: 1px solid #e5e7eb; overflow: auto;
+        }
+        table { width: 100%; border-collapse: collapse; min-width: 900px; }
+        thead tr { background: #1a56db; }
+        thead th {
+            color: white; padding: 14px 8px;
+            font-size: 13px; font-weight: 600;
+            text-align: center; border-right: 1px solid #2563eb;
+        }
+        thead th:first-child { width: 110px; }
+        tbody tr:nth-child(even) { background: #f9fafb; }
+        tbody tr:hover { background: #eff6ff; }
+        tbody td {
+            padding: 12px 8px; text-align: center;
+            border-right: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 12px; color: #374151; vertical-align: middle;
+        }
+        tbody td:first-child {
+            font-weight: 600; color: #1e3a8a;
+            background: #eff6ff; font-size: 12px;
+        }
+        .cours {
+            display: inline-block; padding: 5px 8px;
+            border-radius: 8px; font-size: 11px;
+            font-weight: 600; line-height: 1.5;
+        }
+        .c1 { background: #dbeafe; color: #1e40af; }
+        .c2 { background: #d1fae5; color: #065f46; }
+        .c3 { background: #fef3c7; color: #92400e; }
+        .c4 { background: #ede9fe; color: #4c1d95; }
+        .c5 { background: #fee2e2; color: #991b1b; }
+        .c6 { background: #fce7f3; color: #9d174d; }
+        .c7 { background: #ecfdf5; color: #064e3b; }
+        .c8 { background: #fff7ed; color: #9a3412; }
+        .c9 { background: #f0fdf4; color: #14532d; }
+        .c10 { background: #faf5ff; color: #581c87; }
+        .c11 { background: #fff1f2; color: #881337; }
+        .c12 { background: #f0f9ff; color: #0c4a6e; }
+        .cours-vide { color: #9ca3af; font-size: 16px; }
+        .legende {
+            display: flex; flex-wrap: wrap; gap: 10px;
+            margin-top: 20px; padding: 16px;
+            background: white; border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+        .legende-title { font-size: 13px; font-weight: 600; color: #374151; width: 100%; margin-bottom: 4px; }
+        .legende-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #374151; }
+        .legende-color { width: 12px; height: 12px; border-radius: 4px; }
+        .footer {
+            text-align: center; padding: 20px;
+            color: #9ca3af; font-size: 13px;
+            border-top: 1px solid #e5e7eb;
+            background: white; margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div>
+        <h1>UFR-SEA Informatique</h1>
+        <p>Université Joseph Ki-Zerbo · Promotion P24</p>
+    </div>
+    <div class="nav-links">
+        <button onclick="window.location='index.html'">🏠 Accueil</button>
+        <button onclick="window.location='cahier.html'">📓 Cahier de texte</button>
+        <button onclick="window.location='cours.html'">📚 Cours</button>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="page-title">📅 Emploi du temps</div>
+    <div class="page-subtitle">Promotion P24 · UFR-SEA Informatique · Université Joseph Ki-Zerbo</div>
+
+    <div class="semaine-nav">
+        <button onclick="semainePrec()">◀ Semaine précédente</button>
+        <span class="semaine-label" id="semaine-label"></span>
+        <button onclick="semaineSuiv()">Semaine suivante ▶</button>
+    </div>
+
+    <div class="tableau-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Horaire</th>
+                    <th>Lundi</th>
+                    <th>Mardi</th>
+                    <th>Mercredi</th>
+                    <th>Jeudi</th>
+                    <th>Vendredi</th>
+                    <th>Samedi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>07h30 - 09h30</td>
+                    <td><span class="cours c1">Recherche opérationnelle<br><small>M. Séré</small></span></td>
+                    <td><span class="cours c2">Structure de données avancée<br><small>M. Sawadogo</small></span></td>
+                    <td><span class="cours-vide">—</span></td>
+                    <td><span class="cours c3">Calcul numérique<br><small>M. Traoré</small></span></td>
+                    <td><span class="cours c4">Admin. bases de données<br><small>M. Kaboré</small></span></td>
+                    <td><span class="cours c5">Algèbre relationnelle<br><small>M. Kaboré</small></span></td>
+                </tr>
+                <tr>
+                    <td>09h30 - 11h30</td>
+                    <td><span class="cours c6">Technique de compilation<br><small>Mme Sabané</small></span></td>
+                    <td><span class="cours c7">Programmation assembleur<br><small>M. Zeba</small></span></td>
+                    <td><span class="cours c1">Recherche opérationnelle<br><small>M. Séré</small></span></td>
+                    <td><span class="cours c8">Analyse conception SI<br><small>M. Béré</small></span></td>
+                    <td><span class="cours c9">Intro. réseaux info.<br><small>M. Barra</small></span></td>
+                    <td><span class="cours-vide">—</span></td>
+                </tr>
+                <tr>
+                    <td>11h30 - 13h00</td>
+                    <td><span class="cours c10">Admin. réseaux info.<br><small>M. Barra</small></span></td>
+                    <td><span class="cours c3">Calcul numérique<br><small>M. Traoré</small></span></td>
+                    <td><span class="cours c11">Gestion des processus<br><small>M. Somda</small></span></td>
+                    <td><span class="cours-vide">—</span></td>
+                    <td><span class="cours c12">Probabilité et statistique<br><small>M. Konkobo</small></span></td>
+                    <td><span class="cours c2">Structure de données avancée<br><small>M. Sawadogo</small></span></td>
+                </tr>
+                <tr>
+                    <td>13h00 - 15h00</td>
+                    <td colspan="6" style="color:#9ca3af; font-style:italic;">Pause déjeuner</td>
+                </tr>
+                <tr>
+                    <td>15h00 - 17h00</td>
+                    <td><span class="cours c8">Analyse conception SI<br><small>M. Béré</small></span></td>
+                    <td><span class="cours c4">Admin. bases de données<br><small>M. Kaboré</small></span></td>
+                    <td><span class="cours c2">Structure de données avancée<br><small>M. Sawadogo</small></span></td>
+                    <td><span class="cours c6">Technique de compilation<br><small>Mme Sabané</small></span></td>
+                    <td><span class="cours-vide">—</span></td>
+                    <td><span class="cours c11">Gestion des processus<br><small>M. Somda</small></span></td>
+                </tr>
+                <tr>
+                    <td>17h00 - 19h00</td>
+                    <td><span class="cours c12">Probabilité et statistique<br><small>M. Konkobo</small></span></td>
+                    <td><span class="cours c9">Intro. réseaux info.<br><small>M. Barra</small></span></td>
+                    <td><span class="cours c7">Programmation assembleur<br><small>M. Zeba</small></span></td>
+                    <td><span class="cours c5">Algèbre relationnelle<br><small>M. Kaboré</small></span></td>
+                    <td><span class="cours c10">Admin. réseaux info.<br><small>M. Barra</small></span></td>
+                    <td><span class="cours c3">Calcul numérique<br><small>M. Traoré</small></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="legende">
+        <div class="legende-title">Légende des matières :</div>
+        <div class="legende-item"><div class="legende-color" style="background:#dbeafe;"></div>Recherche opérationnelle</div>
+        <div class="legende-item"><div class="legende-color" style="background:#d1fae5;"></div>Structure de données avancée</div>
+        <div class="legende-item"><div class="legende-color" style="background:#fef3c7;"></div>Calcul numérique</div>
+        <div class="legende-item"><div class="legende-color" style="background:#ede9fe;"></div>Admin. bases de données</div>
+        <div class="legende-item"><div class="legende-color" style="background:#fee2e2;"></div>Algèbre relationnelle</div>
+        <div class="legende-item"><div class="legende-color" style="background:#fce7f3;"></div>Technique de compilation</div>
+        <div class="legende-item"><div class="legende-color" style="background:#ecfdf5;"></div>Programmation assembleur</div>
+        <div class="legende-item"><div class="legende-color" style="background:#fff7ed;"></div>Analyse conception SI</div>
+        <div class="legende-item"><div class="legende-color" style="background:#f0fdf4;"></div>Intro. réseaux info.</div>
+        <div class="legende-item"><div class="legende-color" style="background:#faf5ff;"></div>Admin. réseaux info.</div>
+        <div class="legende-item"><div class="legende-color" style="background:#fff1f2;"></div>Gestion des processus</div>
+        <div class="legende-item"><div class="legende-color" style="background:#f0f9ff;"></div>Probabilité et statistique</div>
+    </div>
+</div>
+
+<div class="footer">
+    UFR-SEA · Informatique · P24 · Université Joseph Ki-Zerbo · Ouagadougou
+</div>
+
+<script>
+    let semaineOffset = 0;
+    function getSemaine(offset) {
+        const today = new Date();
+        const lundi = new Date(today);
+        lundi.setDate(today.getDate() - today.getDay() + 1 + (offset * 7));
+        const samedi = new Date(lundi);
+        samedi.setDate(lundi.getDate() + 5);
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        return `Semaine du ${lundi.toLocaleDateString('fr-FR', options)} au ${samedi.toLocaleDateString('fr-FR', options)}`;
+    }
+    function semainePrec() { semaineOffset--; document.getElementById('semaine-label').textContent = getSemaine(semaineOffset); }
+    function semaineSuiv() { semaineOffset++; document.getElementById('semaine-label').textContent = getSemaine(semaineOffset); }
+    document.getElementById('semaine-label').textContent = getSemaine(0);
+</script>
+
+</body>
+</html>
