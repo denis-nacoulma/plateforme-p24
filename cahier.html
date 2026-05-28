@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cahier de texte - P24</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a56db">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background: #f0f4f8; }
@@ -18,7 +20,7 @@
         }
         .navbar h1 { color: white; font-size: 15px; }
         .navbar p { color: #bfdbfe; font-size: 11px; }
-        .nav-links { display: flex; gap: 6px; }
+        .nav-links { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
         .nav-links button {
             background: transparent;
             border: 1px solid white;
@@ -29,44 +31,33 @@
             font-size: 11px;
         }
         .nav-links button:hover { background: white; color: #1a56db; }
-
+        .btn-deconnexion {
+            background: #fee2e2 !important;
+            border: none !important;
+            color: #991b1b !important;
+        }
+        .etudiant-name { color: #bfdbfe; font-size: 11px; font-weight: 600; }
         .container { max-width: 900px; margin: 16px auto; padding: 0 12px; }
         .page-title { font-size: 18px; color: #1e3a8a; margin-bottom: 4px; }
         .page-subtitle { font-size: 12px; color: #6b7280; margin-bottom: 16px; }
-
-        .prof-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 16px;
-        }
+        .prof-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
         .prof-tab {
-            padding: 6px 12px;
-            border-radius: 20px;
-            border: 1px solid #d1d5db;
-            background: white;
-            font-size: 11px;
-            cursor: pointer;
-            color: #374151;
+            padding: 6px 12px; border-radius: 20px;
+            border: 1px solid #d1d5db; background: white;
+            font-size: 11px; cursor: pointer; color: #374151;
         }
         .prof-tab.active { background: #1a56db; color: white; border-color: #1a56db; }
-
         .seances { display: flex; flex-direction: column; gap: 12px; }
         .seance-card {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid #e5e7eb;
-            overflow: hidden;
+            background: white; border-radius: 12px;
+            border: 1px solid #e5e7eb; overflow: hidden;
         }
         .seance-header {
-            display: flex;
-            align-items: center;
+            display: flex; align-items: center;
             justify-content: space-between;
             padding: 10px 14px;
             border-bottom: 1px solid #e5e7eb;
-            background: #f9fafb;
-            flex-wrap: wrap;
-            gap: 8px;
+            background: #f9fafb; flex-wrap: wrap; gap: 8px;
         }
         .seance-header-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .seance-date {
@@ -78,12 +69,9 @@
         .seance-matiere { font-size: 11px; color: #6b7280; }
         .badge-present { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
         .present { background: #d1fae5; color: #065f46; }
-        .absent { background: #fee2e2; color: #991b1b; }
-
         .seance-body { padding: 12px 14px; }
         .seance-body p { font-size: 13px; color: #374151; line-height: 1.6; }
         .seance-body .label { font-size: 11px; font-weight: 600; color: #6b7280; margin-bottom: 4px; margin-top: 10px; }
-
         .lien-prof {
             background: #eff6ff; border: 1px solid #bfdbfe;
             border-radius: 12px; padding: 16px; margin-bottom: 16px;
@@ -102,7 +90,6 @@
             font-size: 14px; cursor: pointer;
         }
         .btn:hover { background: #1e40af; }
-
         .formulaire-prof {
             background: white; border-radius: 12px;
             border: 2px solid #1a56db; padding: 16px;
@@ -117,26 +104,17 @@
             font-size: 13px; outline: none;
         }
         .form-group textarea { height: 90px; resize: vertical; }
-
         .chargement { text-align: center; padding: 40px; color: #6b7280; font-size: 14px; }
-
         .footer {
             text-align: center; padding: 16px; color: #9ca3af;
             font-size: 11px; border-top: 1px solid #e5e7eb;
             background: white; margin-top: 20px;
         }
-
         @media (min-width: 768px) {
             .navbar { padding: 15px 30px; }
             .navbar h1 { font-size: 18px; }
-            .navbar p { font-size: 13px; }
-            .nav-links button { font-size: 13px; padding: 8px 16px; }
             .container { margin: 30px auto; padding: 0 20px; }
             .page-title { font-size: 22px; }
-            .page-subtitle { font-size: 14px; }
-            .prof-tab { font-size: 13px; padding: 8px 18px; }
-            .seance-prof { font-size: 15px; }
-            .seance-matiere { font-size: 13px; }
         }
     </style>
 </head>
@@ -148,9 +126,11 @@
         <p>Université Joseph Ki-Zerbo · P24</p>
     </div>
     <div class="nav-links">
+        <span class="etudiant-name" id="navbar-etudiant"></span>
         <button onclick="window.location='index.html'">🏠</button>
         <button onclick="window.location='emploidutemps.html'">📅</button>
         <button onclick="window.location='cours.html'">📚</button>
+        <button class="btn-deconnexion" onclick="seDeconnecter()">🚪 Quitter</button>
     </div>
 </nav>
 
@@ -208,11 +188,16 @@
         <div class="form-group">
             <label>Horaire</label>
             <select id="prof-horaire">
-                <option>07h30 - 09h30</option>
-                <option>09h30 - 11h30</option>
-                <option>11h30 - 13h00</option>
-                <option>15h00 - 17h00</option>
+                <option>07h00 - 08h00</option>
+                <option>08h00 - 09h00</option>
+                <option>09h00 - 10h00</option>
+                <option>10h00 - 11h00</option>
+                <option>11h00 - 12h00</option>
+                <option>12h00 - 13h00</option>
+                <option>14h00 - 16h00</option>
+                <option>16h00 - 17h00</option>
                 <option>17h00 - 19h00</option>
+                <option>19h00 - 20h00</option>
             </select>
         </div>
         <div class="form-group">
@@ -250,6 +235,7 @@
 </div>
 
 <script src="supabase.js"></script>
+<script src="auth.js"></script>
 <script>
     const CODE_SECRET = "prof2026";
     let toutesLesSeances = [];

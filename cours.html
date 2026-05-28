@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cours & Exercices - P24</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a56db">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background: #f0f4f8; }
@@ -18,7 +20,7 @@
         }
         .navbar h1 { color: white; font-size: 15px; }
         .navbar p { color: #bfdbfe; font-size: 11px; }
-        .nav-links { display: flex; gap: 6px; }
+        .nav-links { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
         .nav-links button {
             background: transparent;
             border: 1px solid white;
@@ -29,11 +31,15 @@
             font-size: 11px;
         }
         .nav-links button:hover { background: white; color: #1a56db; }
-
+        .btn-deconnexion {
+            background: #fee2e2 !important;
+            border: none !important;
+            color: #991b1b !important;
+        }
+        .etudiant-name { color: #bfdbfe; font-size: 11px; font-weight: 600; }
         .container { max-width: 1000px; margin: 16px auto; padding: 0 12px; }
         .page-title { font-size: 18px; color: #1e3a8a; margin-bottom: 4px; }
         .page-subtitle { font-size: 12px; color: #6b7280; margin-bottom: 16px; }
-
         .stats-bar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
         .stat {
             background: white; border-radius: 10px;
@@ -42,7 +48,6 @@
         }
         .stat span { font-weight: 600; color: #1a56db; font-size: 20px; display: block; }
         .stat p { font-size: 11px; color: #6b7280; margin-top: 2px; }
-
         .search-bar { margin-bottom: 14px; }
         .search-bar input {
             width: 100%; padding: 10px 16px;
@@ -50,7 +55,13 @@
             font-size: 14px; outline: none;
         }
         .search-bar input:focus { border-color: #1a56db; }
-
+        .type-filtres { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+        .type-btn {
+            padding: 6px 12px; border-radius: 20px;
+            border: 1px solid #d1d5db; background: white;
+            font-size: 11px; cursor: pointer; color: #374151;
+        }
+        .type-btn.active { background: #065f46; color: white; border-color: #065f46; }
         .filtres { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
         .filtre-btn {
             padding: 6px 12px; border-radius: 20px;
@@ -58,20 +69,7 @@
             font-size: 11px; cursor: pointer; color: #374151;
         }
         .filtre-btn.active { background: #1a56db; color: white; border-color: #1a56db; }
-
-        .type-filtres { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-        .type-btn {
-            padding: 6px 12px; border-radius: 20px;
-            border: 1px solid #d1d5db; background: white;
-            font-size: 11px; cursor: pointer; color: #374151;
-        }
-        .type-btn.active { background: #065f46; color: white; border-color: #065f46; }
-
-        .cours-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
+        .cours-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
         .cours-card {
             background: white; border-radius: 12px;
             border: 1px solid #e5e7eb; overflow: hidden;
@@ -92,7 +90,6 @@
         .file-word { background: #dbeafe; }
         .file-ppt { background: #fef3c7; }
         .file-other { background: #f3f4f6; }
-
         .cours-info h3 { font-size: 13px; font-weight: 600; color: #1e3a8a; margin-bottom: 3px; }
         .cours-info p { font-size: 11px; color: #6b7280; }
         .cours-card-body { padding: 10px 14px; }
@@ -103,7 +100,6 @@
         .type-td { background: #d1fae5; color: #065f46; }
         .type-tp { background: #fef3c7; color: #92400e; }
         .type-devoir { background: #fee2e2; color: #991b1b; }
-
         .btn-telecharger {
             width: 100%; padding: 10px; background: #1a56db;
             color: white; border: none; border-radius: 8px;
@@ -113,27 +109,19 @@
             text-decoration: none;
         }
         .btn-telecharger:hover { background: #1e40af; }
-
         .chargement { text-align: center; padding: 60px; color: #6b7280; font-size: 14px; }
-
         .footer {
             text-align: center; padding: 16px; color: #9ca3af;
             font-size: 11px; border-top: 1px solid #e5e7eb;
             background: white; margin-top: 20px;
         }
-
-        @media (min-width: 600px) {
-            .cours-grid { grid-template-columns: 1fr 1fr; }
-        }
+        @media (min-width: 600px) { .cours-grid { grid-template-columns: 1fr 1fr; } }
         @media (min-width: 768px) {
             .navbar { padding: 15px 30px; }
             .navbar h1 { font-size: 18px; }
-            .navbar p { font-size: 13px; }
-            .nav-links button { font-size: 13px; padding: 8px 16px; }
             .container { margin: 30px auto; padding: 0 20px; }
             .page-title { font-size: 22px; }
             .cours-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
-            .filtre-btn { font-size: 13px; padding: 8px 18px; }
         }
     </style>
 </head>
@@ -145,9 +133,11 @@
         <p>Université Joseph Ki-Zerbo · P24</p>
     </div>
     <div class="nav-links">
+        <span class="etudiant-name" id="navbar-etudiant"></span>
         <button onclick="window.location='index.html'">🏠</button>
         <button onclick="window.location='emploidutemps.html'">📅</button>
         <button onclick="window.location='cahier.html'">📓</button>
+        <button class="btn-deconnexion" onclick="seDeconnecter()">🚪 Quitter</button>
     </div>
 </nav>
 
@@ -162,10 +152,9 @@
     </div>
 
     <div class="search-bar">
-        <input type="text" id="recherche" placeholder="🔍 Rechercher un cours, matière, professeur..." oninput="rechercher()" />
+        <input type="text" id="recherche" placeholder="🔍 Rechercher un cours..." oninput="rechercher()" />
     </div>
 
-    <!-- FILTRE PAR TYPE -->
     <div class="type-filtres">
         <button class="type-btn active" onclick="filtrerType('tous', this)">Tous les types</button>
         <button class="type-btn" onclick="filtrerType('Cours', this)">📘 Cours</button>
@@ -174,7 +163,6 @@
         <button class="type-btn" onclick="filtrerType('Devoir', this)">📋 Devoir</button>
     </div>
 
-    <!-- FILTRE PAR MATIERE -->
     <div class="filtres">
         <button class="filtre-btn active" onclick="filtrer('tous', this)">Toutes matières</button>
         <button class="filtre-btn" onclick="filtrer('ro', this)">Rech. opérat.</button>
@@ -201,6 +189,7 @@
 </div>
 
 <script src="supabase.js"></script>
+<script src="auth.js"></script>
 <script>
     let tousLesDocuments = [];
     let filtreMatiere = 'tous';
@@ -225,7 +214,6 @@
         if (u.includes('.pdf')) return { icone: '📄', classe: 'file-pdf' };
         if (u.includes('.ppt') || u.includes('.pptx')) return { icone: '📊', classe: 'file-ppt' };
         if (u.includes('.doc') || u.includes('.docx')) return { icone: '📝', classe: 'file-word' };
-        if (u.includes('.xls') || u.includes('.xlsx')) return { icone: '📊', classe: 'file-other' };
         return { icone: '📄', classe: 'file-other' };
     }
 
@@ -247,7 +235,7 @@
             afficherDocuments(docs);
         } catch(e) {
             document.getElementById('cours-grid').innerHTML =
-                '<div class="chargement" style="grid-column:1/-1">❌ Erreur de chargement.</div>';
+                '<div class="chargement" style="grid-column:1/-1">❌ Erreur.</div>';
         }
     }
 
@@ -255,10 +243,9 @@
         const grid = document.getElementById('cours-grid');
         if (!docs || docs.length === 0) {
             grid.innerHTML = `
-                <div style="grid-column:1/-1; text-align:center; padding:40px 20px; color:#9ca3af;">
+                <div style="grid-column:1/-1; text-align:center; padding:40px; color:#9ca3af;">
                     <div style="font-size:40px; margin-bottom:12px;">📂</div>
-                    <div style="font-size:15px; font-weight:600; color:#6b7280; margin-bottom:6px;">Aucun document disponible</div>
-                    <div style="font-size:13px;">Les cours seront ajoutés par l'administrateur.</div>
+                    <div style="font-size:15px; font-weight:600; color:#6b7280;">Aucun document disponible</div>
                 </div>`;
             return;
         }
@@ -292,12 +279,8 @@
 
     function appliquerFiltres() {
         let docs = tousLesDocuments;
-        if (filtreMatiere !== 'tous') {
-            docs = docs.filter(d => d.matiere === filtreMatiere);
-        }
-        if (filtreType !== 'tous') {
-            docs = docs.filter(d => d.type_doc === filtreType);
-        }
+        if (filtreMatiere !== 'tous') docs = docs.filter(d => d.matiere === filtreMatiere);
+        if (filtreType !== 'tous') docs = docs.filter(d => d.type_doc === filtreType);
         afficherDocuments(docs);
     }
 
@@ -320,8 +303,7 @@
         afficherDocuments(tousLesDocuments.filter(d =>
             d.titre.toLowerCase().includes(terme) ||
             d.professeur.toLowerCase().includes(terme) ||
-            d.matiere.toLowerCase().includes(terme) ||
-            d.type_doc.toLowerCase().includes(terme)
+            d.matiere.toLowerCase().includes(terme)
         ));
     }
 

@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UFR-SEA Informatique P24</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a56db">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="P24">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background: #f0f4f8; }
-
         .navbar {
             background: #1a56db;
             padding: 12px 16px;
@@ -28,8 +32,6 @@
             cursor: pointer;
             font-size: 12px;
         }
-        .navbar button:hover { background: white; color: #1a56db; }
-
         .hero {
             background: white;
             text-align: center;
@@ -38,10 +40,9 @@
         }
         .hero h2 { font-size: 22px; color: #1e3a8a; margin-bottom: 10px; }
         .hero p { color: #6b7280; font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
-
         .btn {
             display: inline-block;
-            padding: 12px 24px;
+            padding: 14px 24px;
             border-radius: 8px;
             font-size: 14px;
             cursor: pointer;
@@ -52,7 +53,6 @@
         }
         .btn-blue { background: #1a56db; color: white; }
         .btn-white { background: white; color: #1a56db; border: 1px solid #1a56db; }
-
         .cards {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -74,7 +74,6 @@
         .card-icon { font-size: 28px; margin-bottom: 8px; }
         .card h3 { font-size: 13px; color: #1e3a8a; margin-bottom: 6px; }
         .card p { font-size: 11px; color: #6b7280; line-height: 1.4; }
-
         .info-bar {
             background: #1e3a8a;
             color: white;
@@ -84,7 +83,28 @@
             margin: 0 16px 20px;
             border-radius: 12px;
         }
-
+        .install-banner {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin: 0 16px 16px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .install-banner p { font-size: 13px; color: #1e3a8a; }
+        .install-btn {
+            padding: 8px 16px;
+            background: #1a56db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
         .footer {
             text-align: center;
             padding: 16px;
@@ -94,12 +114,9 @@
             background: white;
             margin-top: 20px;
         }
-
-        /* DESKTOP */
         @media (min-width: 768px) {
             .navbar { padding: 15px 30px; }
             .navbar h1 { font-size: 18px; }
-            .navbar p { font-size: 13px; }
             .hero { padding: 60px 20px; }
             .hero h2 { font-size: 28px; }
             .btn { width: auto; }
@@ -108,7 +125,6 @@
             .card-icon { font-size: 36px; }
             .card h3 { font-size: 16px; }
             .card p { font-size: 13px; }
-            .info-bar { margin: 0 30px 30px; }
         }
     </style>
 </head>
@@ -137,18 +153,23 @@
     </div>
 </div>
 
+<div class="install-banner" id="install-banner">
+    <p>📱 Installez l'application sur votre téléphone !</p>
+    <button class="install-btn" id="install-btn">Installer</button>
+</div>
+
 <div class="cards">
-    <div class="card" onclick="window.location='emploidutemps.html'">
+    <div class="card" onclick="window.location='login.html'">
         <div class="card-icon">📅</div>
         <h3>Emploi du temps</h3>
         <p>Consultez le planning de la semaine</p>
     </div>
-    <div class="card" onclick="window.location='cahier.html'">
+    <div class="card" onclick="window.location='login.html'">
         <div class="card-icon">📓</div>
         <h3>Cahier de texte</h3>
         <p>Suivez les séances des professeurs</p>
     </div>
-    <div class="card" onclick="window.location='cours.html'">
+    <div class="card" onclick="window.location='login.html'">
         <div class="card-icon">📚</div>
         <h3>Cours & Exercices</h3>
         <p>Téléchargez vos PDF et documents</p>
@@ -163,6 +184,41 @@
 <div class="footer">
     UFR-SEA · Informatique · P24 · Université Joseph Ki-Zerbo · Ouagadougou
 </div>
+
+<script>
+    // SERVICE WORKER
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/plateforme-p24/sw.js')
+            .then(() => console.log('✅ Service Worker enregistré'))
+            .catch(err => console.log('❌ SW Error:', err));
+    }
+
+    // INSTALLATION APP
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById('install-banner').style.display = 'flex';
+    });
+
+    document.getElementById('install-btn').addEventListener('click', () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(() => {
+                deferredPrompt = null;
+                document.getElementById('install-banner').style.display = 'none';
+            });
+        }
+    });
+
+    // Si déjà connecté → rediriger vers emploi du temps
+    const etudiant = localStorage.getItem('etudiant');
+    if (etudiant) {
+        // Afficher bouton déconnexion
+        document.querySelector('.navbar button').textContent = 'Mon espace';
+        document.querySelector('.navbar button').onclick = () => window.location = 'emploidutemps.html';
+    }
+</script>
 
 </body>
 </html>

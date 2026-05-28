@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emploi du temps - P24</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a56db">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background: #f0f4f8; }
@@ -18,7 +20,7 @@
         }
         .navbar h1 { color: white; font-size: 15px; }
         .navbar p { color: #bfdbfe; font-size: 11px; }
-        .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+        .nav-links { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
         .nav-links button {
             background: transparent;
             border: 1px solid white;
@@ -29,6 +31,20 @@
             font-size: 11px;
         }
         .nav-links button:hover { background: white; color: #1a56db; }
+        .btn-deconnexion {
+            background: #fee2e2 !important;
+            border: none !important;
+            color: #991b1b !important;
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+        .etudiant-name {
+            color: #bfdbfe;
+            font-size: 11px;
+            font-weight: 600;
+        }
         .container { max-width: 1200px; margin: 16px auto; padding: 0 12px; }
         .page-title { font-size: 18px; color: #1e3a8a; margin-bottom: 4px; }
         .page-subtitle { font-size: 12px; color: #6b7280; margin-bottom: 16px; }
@@ -119,9 +135,11 @@
         <p>Université Joseph Ki-Zerbo · P24</p>
     </div>
     <div class="nav-links">
+        <span class="etudiant-name" id="navbar-etudiant"></span>
         <button onclick="window.location='index.html'">🏠</button>
         <button onclick="window.location='cahier.html'">📓</button>
         <button onclick="window.location='cours.html'">📚</button>
+        <button class="btn-deconnexion" onclick="seDeconnecter()">🚪 Quitter</button>
     </div>
 </nav>
 
@@ -149,7 +167,6 @@
                 </tr>
             </thead>
             <tbody>
-
                 <tr>
                     <td>07h00<br>08h00</td>
                     <td><span class="vide">—</span></td>
@@ -159,7 +176,6 @@
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
                 </tr>
-
                 <tr>
                     <td>08h00<br>09h00</td>
                     <td><span class="vide">—</span></td>
@@ -169,7 +185,6 @@
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
                 </tr>
-
                 <tr>
                     <td>09h00<br>10h00</td>
                     <td><span class="vide">—</span></td>
@@ -179,7 +194,6 @@
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
                 </tr>
-
                 <tr>
                     <td>10h00<br>11h00</td>
                     <td><span class="vide">—</span></td>
@@ -189,7 +203,6 @@
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
                 </tr>
-
                 <tr>
                     <td>11h00<br>12h00</td>
                     <td><span class="vide">—</span></td>
@@ -199,7 +212,6 @@
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
                 </tr>
-
                 <tr>
                     <td>12h00<br>13h00</td>
                     <td><span class="vide">—</span></td>
@@ -209,45 +221,37 @@
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
                 </tr>
-
                 <tr>
                     <td>13h00<br>14h00</td>
                     <td colspan="6" class="pause">🍽️ Pause déjeuner</td>
                 </tr>
-
                 <tr>
                     <td>14h00<br>16h00</td>
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
-                    <!-- JEUDI 14h00-16h00 : TP Mérise -->
                     <td><span class="cours c8">TP Mérise<br><small>M. Béré</small></span></td>
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
                 </tr>
-
                 <tr>
                     <td>16h00<br>17h00</td>
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
-                    <!-- JEUDI 16h00-17h00 : TP Mérise (suite) -->
                     <td><span class="cours c8">TP Mérise (suite)<br><small>M. Béré</small></span></td>
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
                 </tr>
-
                 <tr>
                     <td>17h00<br>19h00</td>
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
-                    <!-- JEUDI 17h00-19h00 : TP Mérise (fin) -->
                     <td><span class="cours c8">TP Mérise (fin)<br><small>M. Béré</small></span></td>
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
                 </tr>
-
                 <tr>
                     <td>19h00<br>20h00</td>
                     <td><span class="vide">—</span></td>
@@ -257,7 +261,6 @@
                     <td><span class="vide">—</span></td>
                     <td><span class="vide">—</span></td>
                 </tr>
-
             </tbody>
         </table>
     </div>
@@ -283,6 +286,7 @@
     UFR-SEA · Informatique · P24 · Université Joseph Ki-Zerbo · Ouagadougou
 </div>
 
+<script src="auth.js"></script>
 <script>
     let semaineOffset = 0;
     function getSemaine(offset) {
