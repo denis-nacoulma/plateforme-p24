@@ -105,7 +105,8 @@
             padding: 12px 16px;
             border-bottom: 1px solid #e5e7eb;
             background: #f9fafb;
-            display: flex; align-items: center; gap: 8px;
+            display: flex; align-items: center;
+            justify-content: space-between; gap: 8px;
         }
         .section-header h3 { font-size: 14px; font-weight: 600; color: #1e3a8a; }
         .section-body { padding: 16px; }
@@ -119,6 +120,8 @@
         }
         .fg textarea { height: 80px; resize: vertical; }
         .fg input:focus, .fg select:focus { border-color: #1e3a8a; }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
         .btn-submit {
             width: 100%; padding: 12px;
@@ -149,7 +152,23 @@
             transition: width 0.3s;
         }
 
-        .docs-liste { margin-top: 10px; }
+        .creneau-item {
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px; background: #f9fafb;
+            border-radius: 8px; margin-bottom: 8px;
+            border: 1px solid #e5e7eb;
+            flex-wrap: wrap; gap: 8px;
+        }
+        .creneau-info { flex: 1; }
+        .creneau-info strong { font-size: 13px; color: #1e3a8a; }
+        .creneau-info small { font-size: 11px; color: #6b7280; display: block; margin-top: 2px; }
+        .btn-supprimer {
+            padding: 5px 12px; background: #fee2e2;
+            color: #991b1b; border: none; border-radius: 6px;
+            font-size: 11px; cursor: pointer;
+        }
+
         .doc-item {
             display: flex; align-items: center;
             justify-content: space-between;
@@ -160,11 +179,6 @@
         }
         .doc-item-info { font-size: 13px; color: #374151; flex: 1; }
         .doc-item-info small { font-size: 11px; color: #6b7280; display: block; }
-        .btn-supprimer {
-            padding: 4px 10px; background: #fee2e2;
-            color: #991b1b; border: none; border-radius: 6px;
-            font-size: 11px; cursor: pointer;
-        }
 
         .code-secret {
             background: #f0fdf4; border: 1px solid #bbf7d0;
@@ -269,14 +283,15 @@
                 <div class="stat-val" id="nb-seances">—</div>
             </div>
             <div class="stat">
-                <div class="stat-label">📢 Annonces</div>
-                <div class="stat-val" id="nb-annonces">—</div>
+                <div class="stat-label">📅 Créneaux</div>
+                <div class="stat-val" id="nb-creneaux">—</div>
             </div>
         </div>
 
         <div class="tabs">
             <button class="tab active" onclick="afficherOnglet('docs', this)">📄 Cours</button>
             <button class="tab" onclick="afficherOnglet('liste-docs', this)">📋 Liste docs</button>
+            <button class="tab" onclick="afficherOnglet('edt', this)">📅 Emploi du temps</button>
             <button class="tab" onclick="afficherOnglet('etudiants', this)">👥 Étudiants</button>
             <button class="tab" onclick="afficherOnglet('profs', this)">🔑 Codes Profs</button>
             <button class="tab" onclick="afficherOnglet('annonces', this)">📢 Annonces</button>
@@ -286,8 +301,7 @@
         <div class="tab-content active" id="tab-docs">
             <div class="section-card">
                 <div class="section-header">
-                    <span>📄</span>
-                    <h3>Ajouter un cours, TD, TP ou Devoir</h3>
+                    <h3>📄 Ajouter un cours, TD, TP ou Devoir</h3>
                 </div>
                 <div class="section-body">
                     <div class="fg">
@@ -310,7 +324,7 @@
                     </div>
                     <div class="fg">
                         <label>Titre du document</label>
-                        <input type="text" id="upload-titre" placeholder="Ex: Cours Chapitre 1 — Introduction" />
+                        <input type="text" id="upload-titre" placeholder="Ex: Cours Chapitre 1" />
                     </div>
                     <div class="fg">
                         <label>Professeur</label>
@@ -329,7 +343,7 @@
                         </select>
                     </div>
                     <div class="fg">
-                        <label>Type de document</label>
+                        <label>Type</label>
                         <select id="upload-type">
                             <option value="Cours">📘 Cours</option>
                             <option value="TD">📝 TD / Exercices</option>
@@ -360,11 +374,130 @@
         <div class="tab-content" id="tab-liste-docs">
             <div class="section-card">
                 <div class="section-header">
-                    <span>📋</span>
-                    <h3>Documents publiés</h3>
+                    <h3>📋 Documents publiés</h3>
                 </div>
                 <div class="section-body">
                     <div id="liste-docs">
+                        <div class="chargement">⏳ Chargement...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ONGLET EMPLOI DU TEMPS -->
+        <div class="tab-content" id="tab-edt">
+            <div class="section-card">
+                <div class="section-header">
+                    <h3>📅 Ajouter un créneau</h3>
+                </div>
+                <div class="section-body">
+                    <div class="fg">
+                        <label>Semaine (date du lundi)</label>
+                        <input type="date" id="edt-semaine" />
+                    </div>
+                    <div class="fg">
+                        <label>Jour</label>
+                        <select id="edt-jour">
+                            <option value="Lundi">Lundi</option>
+                            <option value="Mardi">Mardi</option>
+                            <option value="Mercredi">Mercredi</option>
+                            <option value="Jeudi">Jeudi</option>
+                            <option value="Vendredi">Vendredi</option>
+                            <option value="Samedi">Samedi</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="fg">
+                            <label>Heure début</label>
+                            <select id="edt-debut">
+                                <option>07h30</option>
+                                <option>08h00</option>
+                                <option>09h00</option>
+                                <option>09h30</option>
+                                <option>10h00</option>
+                                <option>11h00</option>
+                                <option>11h30</option>
+                                <option>12h00</option>
+                                <option>13h00</option>
+                                <option>14h00</option>
+                                <option>15h00</option>
+                                <option>16h00</option>
+                                <option>17h00</option>
+                                <option>18h00</option>
+                                <option>19h00</option>
+                            </select>
+                        </div>
+                        <div class="fg">
+                            <label>Heure fin</label>
+                            <select id="edt-fin">
+                                <option>09h30</option>
+                                <option>10h00</option>
+                                <option>11h00</option>
+                                <option>11h30</option>
+                                <option>12h00</option>
+                                <option>13h00</option>
+                                <option>14h00</option>
+                                <option>15h00</option>
+                                <option>16h00</option>
+                                <option>17h00</option>
+                                <option>18h00</option>
+                                <option>19h00</option>
+                                <option>20h00</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fg">
+                        <label>Matière</label>
+                        <select id="edt-matiere">
+                            <option value="">-- Choisissez --</option>
+                            <option>Recherche opérationnelle</option>
+                            <option>Structure de données avancée</option>
+                            <option>Calcul numérique</option>
+                            <option>Administration des bases de données</option>
+                            <option>Algèbre relationnelle</option>
+                            <option>Technique de compilation</option>
+                            <option>Programmation assembleur</option>
+                            <option>Analyse et conception des SI</option>
+                            <option>Introduction aux réseaux informatiques</option>
+                            <option>Administration des réseaux informatiques</option>
+                            <option>Gestion des processus</option>
+                            <option>Probabilité et statistique</option>
+                        </select>
+                    </div>
+                    <div class="fg">
+                        <label>Professeur</label>
+                        <select id="edt-prof">
+                            <option value="">-- Choisissez --</option>
+                            <option>M. Zoinabo Séré</option>
+                            <option>M. Léonard W. Sawadogo</option>
+                            <option>M. Urbain Traoré</option>
+                            <option>M. Kizito Kaboré</option>
+                            <option>Mme Aminata Sabané</option>
+                            <option>M. Ousmane Zeba</option>
+                            <option>M. Cédric Béré</option>
+                            <option>M. Ousmane Barra</option>
+                            <option>M. Flavien Somda</option>
+                            <option>M. Amidou Konkobo</option>
+                        </select>
+                    </div>
+                    <div class="fg">
+                        <label>Salle (optionnel)</label>
+                        <input type="text" id="edt-salle" placeholder="Ex: Salle B12, Amphi A..." />
+                    </div>
+                    <button class="btn-submit" onclick="ajouterCreneauAdmin()">➕ Ajouter le créneau</button>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h3>📋 Créneaux enregistrés</h3>
+                </div>
+                <div class="section-body">
+                    <div class="fg">
+                        <label>Filtrer par semaine (date du lundi)</label>
+                        <input type="date" id="filtre-semaine" onchange="chargerCreneauxAdmin()" />
+                    </div>
+                    <div id="liste-creneaux">
                         <div class="chargement">⏳ Chargement...</div>
                     </div>
                 </div>
@@ -375,8 +508,7 @@
         <div class="tab-content" id="tab-etudiants">
             <div class="section-card">
                 <div class="section-header">
-                    <span>👥</span>
-                    <h3>Étudiants inscrits</h3>
+                    <h3>👥 Étudiants inscrits</h3>
                 </div>
                 <div class="section-body">
                     <div id="liste-etudiants">
@@ -390,8 +522,7 @@
         <div class="tab-content" id="tab-profs">
             <div class="section-card">
                 <div class="section-header">
-                    <span>🔑</span>
-                    <h3>Codes secrets professeurs</h3>
+                    <h3>🔑 Codes secrets professeurs</h3>
                 </div>
                 <div class="section-body">
                     <div class="fg">
@@ -434,8 +565,7 @@
         <div class="tab-content" id="tab-annonces">
             <div class="section-card">
                 <div class="section-header">
-                    <span>📢</span>
-                    <h3>Publier une annonce</h3>
+                    <h3>📢 Publier une annonce</h3>
                 </div>
                 <div class="section-body">
                     <div class="fg">
@@ -483,9 +613,25 @@
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('admin-panel').style.display = 'block';
             chargerStats();
+            // Mettre la date du lundi de la semaine courante par défaut
+            const lundi = getLundiSemaine(0);
+            document.getElementById('edt-semaine').value = lundi;
+            document.getElementById('filtre-semaine').value = lundi;
+            chargerCreneauxAdmin();
         } else {
             document.getElementById('msg-error').style.display = 'block';
         }
+    }
+
+    function getLundiSemaine(offset) {
+        const today = new Date();
+        const lundi = new Date(today);
+        lundi.setDate(today.getDate() - today.getDay() + 1 + (offset * 7));
+        return lundi.toISOString().split('T')[0];
+    }
+
+    function getSemaineKey(dateStr) {
+        return `S${dateStr}`;
     }
 
     function afficherOnglet(nom, btn) {
@@ -495,6 +641,7 @@
         document.getElementById('tab-' + nom).classList.add('active');
         if (nom === 'etudiants') chargerEtudiants();
         if (nom === 'liste-docs') chargerListeDocs();
+        if (nom === 'edt') chargerCreneauxAdmin();
     }
 
     async function chargerStats() {
@@ -502,11 +649,11 @@
             const etudiants = await getEtudiants();
             const docs = await getDocuments();
             const seances = await getSeances();
-            const annonces = await getAnnonces();
+            const creneaux = await getEmploiDuTemps();
             document.getElementById('nb-etudiants').textContent = etudiants.length;
             document.getElementById('nb-docs').textContent = docs.length;
             document.getElementById('nb-seances').textContent = seances.length;
-            document.getElementById('nb-annonces').textContent = annonces.length;
+            document.getElementById('nb-creneaux').textContent = creneaux.length;
         } catch(e) {}
     }
 
@@ -528,8 +675,7 @@
                 </div>
             `).join('');
         } catch(e) {
-            document.getElementById('liste-etudiants').innerHTML =
-                '<div class="chargement">❌ Erreur.</div>';
+            document.getElementById('liste-etudiants').innerHTML = '<div class="chargement">❌ Erreur.</div>';
         }
     }
 
@@ -538,7 +684,7 @@
             const docs = await getDocuments();
             const liste = document.getElementById('liste-docs');
             if (!docs || docs.length === 0) {
-                liste.innerHTML = '<div class="chargement">📂 Aucun document publié.</div>';
+                liste.innerHTML = '<div class="chargement">📂 Aucun document.</div>';
                 return;
             }
             liste.innerHTML = docs.map(d => `
@@ -551,11 +697,88 @@
                 </div>
             `).join('');
         } catch(e) {
-            document.getElementById('liste-docs').innerHTML =
-                '<div class="chargement">❌ Erreur.</div>';
+            document.getElementById('liste-docs').innerHTML = '<div class="chargement">❌ Erreur.</div>';
         }
     }
 
+    // EMPLOI DU TEMPS
+    async function ajouterCreneauAdmin() {
+        const semaine = document.getElementById('edt-semaine').value;
+        const jour = document.getElementById('edt-jour').value;
+        const debut = document.getElementById('edt-debut').value;
+        const fin = document.getElementById('edt-fin').value;
+        const matiere = document.getElementById('edt-matiere').value;
+        const prof = document.getElementById('edt-prof').value;
+        const salle = document.getElementById('edt-salle').value;
+
+        if (!semaine || !matiere || !prof) {
+            alert('⚠️ Remplissez tous les champs obligatoires !');
+            return;
+        }
+
+        try {
+            const semaineKey = getSemaineKey(semaine);
+            await ajouterCreneau(jour, debut, fin, matiere, prof, salle, semaineKey);
+            alert('✅ Créneau ajouté avec succès !');
+            document.getElementById('edt-matiere').value = '';
+            document.getElementById('edt-prof').value = '';
+            document.getElementById('edt-salle').value = '';
+            chargerCreneauxAdmin();
+            chargerStats();
+        } catch(e) {
+            alert('❌ Erreur : ' + e.message);
+        }
+    }
+
+    async function chargerCreneauxAdmin() {
+        const dateStr = document.getElementById('filtre-semaine') ?
+            document.getElementById('filtre-semaine').value : getLundiSemaine(0);
+        const semaineKey = getSemaineKey(dateStr);
+
+        try {
+            const creneaux = await getEmploiDuTemps(semaineKey);
+            const liste = document.getElementById('liste-creneaux');
+            if (!creneaux || creneaux.length === 0) {
+                liste.innerHTML = '<div class="chargement">📭 Aucun créneau pour cette semaine.</div>';
+                return;
+            }
+            const jours = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+            let html = '';
+            jours.forEach(jour => {
+                const creneauxJour = creneaux.filter(c => c.jour === jour)
+                    .sort((a, b) => a.heure_debut.localeCompare(b.heure_debut));
+                if (creneauxJour.length > 0) {
+                    html += `<div style="font-size:13px; font-weight:600; color:#1e3a8a; margin:12px 0 6px;">${jour}</div>`;
+                    html += creneauxJour.map(c => `
+                        <div class="creneau-item">
+                            <div class="creneau-info">
+                                <strong>${c.heure_debut} - ${c.heure_fin} · ${c.matiere}</strong>
+                                <small>👨‍🏫 ${c.professeur} ${c.salle ? '· 🏫 ' + c.salle : ''}</small>
+                            </div>
+                            <button class="btn-supprimer" onclick="supprimerCreneauAdmin('${c.id}')">🗑️ Supprimer</button>
+                        </div>
+                    `).join('');
+                }
+            });
+            liste.innerHTML = html;
+        } catch(e) {
+            document.getElementById('liste-creneaux').innerHTML = '<div class="chargement">❌ Erreur.</div>';
+        }
+    }
+
+    async function supprimerCreneauAdmin(id) {
+        if (!confirm('Supprimer ce créneau ?')) return;
+        try {
+            await supprimerCreneau(id);
+            alert('✅ Créneau supprimé !');
+            chargerCreneauxAdmin();
+            chargerStats();
+        } catch(e) {
+            alert('❌ Erreur !');
+        }
+    }
+
+    // UPLOAD DOCUMENT
     function afficherFichier(input) {
         const nom = document.getElementById('fichier-nom');
         if (input.files.length > 0) {
@@ -599,7 +822,7 @@
                 await ajouterDocument(titre, matiere, type, prof, urlFichier);
                 progressFill.style.width = '100%';
                 setTimeout(() => { progressBar.style.display = 'none'; progressFill.style.width = '0%'; }, 1000);
-                alert('✅ "' + titre + '" publié avec succès !');
+                alert('✅ "' + titre + '" publié !');
                 document.getElementById('upload-matiere').value = '';
                 document.getElementById('upload-titre').value = '';
                 document.getElementById('upload-prof').value = '';
@@ -608,7 +831,7 @@
                 chargerStats();
             } else {
                 progressBar.style.display = 'none';
-                alert('❌ Erreur upload ! Vérifiez le fichier.');
+                alert('❌ Erreur upload !');
             }
         } catch(e) {
             progressBar.style.display = 'none';

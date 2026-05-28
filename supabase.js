@@ -72,8 +72,30 @@ async function getAnnonces() {
     return await supabaseRequest('annonces', 'GET', null, '?order=date_annonce.desc') || [];
 }
 
+// EMPLOI DU TEMPS
+async function ajouterCreneau(jour, heure_debut, heure_fin, matiere, professeur, salle, semaine) {
+    return await supabaseRequest('emploidutemps', 'POST', {
+        jour, heure_debut, heure_fin, matiere, professeur, salle, semaine
+    });
+}
+
+async function getEmploiDuTemps(semaine) {
+    const filter = semaine ? `?semaine=eq.${semaine}&order=heure_debut.asc` : '?order=heure_debut.asc';
+    return await supabaseRequest('emploidutemps', 'GET', null, filter) || [];
+}
+
+async function supprimerCreneau(id) {
+    return await supabaseRequest('emploidutemps', 'DELETE', null, `?id=eq.${id}`);
+}
+
+async function modifierCreneau(id, jour, heure_debut, heure_fin, matiere, professeur, salle, semaine) {
+    return await supabaseRequest('emploidutemps', 'PATCH', {
+        jour, heure_debut, heure_fin, matiere, professeur, salle, semaine
+    }, `?id=eq.${id}`);
+}
+
+// STORAGE
 async function uploadPDF(fichier, nomFichier) {
-    // Nettoyer le nom du fichier
     const nomPropre = nomFichier
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
