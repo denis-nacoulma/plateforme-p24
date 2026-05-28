@@ -29,84 +29,51 @@
             font-size: 11px;
         }
         .nav-links button:hover { background: white; color: #1a56db; }
-
         .container { max-width: 1200px; margin: 16px auto; padding: 0 12px; }
         .page-title { font-size: 18px; color: #1e3a8a; margin-bottom: 4px; }
         .page-subtitle { font-size: 12px; color: #6b7280; margin-bottom: 16px; }
-
         .semaine-nav {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
+            display: flex; align-items: center;
+            gap: 8px; margin-bottom: 16px; flex-wrap: wrap;
         }
         .semaine-nav button {
-            background: white;
-            border: 1px solid #d1d5db;
-            padding: 8px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 12px;
-            color: #374151;
+            background: white; border: 1px solid #d1d5db;
+            padding: 8px 12px; border-radius: 8px;
+            cursor: pointer; font-size: 12px; color: #374151;
         }
         .semaine-label {
-            font-size: 13px;
-            font-weight: 600;
-            color: #1e3a8a;
-            flex: 1;
-            text-align: center;
+            font-size: 13px; font-weight: 600;
+            color: #1e3a8a; flex: 1; text-align: center;
         }
-
-        .jours-tabs {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
+        .tableau-container {
+            background: white; border-radius: 12px;
+            border: 1px solid #e5e7eb; overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
-        .jour-tab {
-            padding: 8px 14px;
-            border-radius: 10px;
-            border: 1px solid #d1d5db;
-            background: white;
-            font-size: 12px;
-            cursor: pointer;
-            color: #374151;
+        table { width: 100%; border-collapse: collapse; min-width: 700px; }
+        thead tr { background: #1a56db; }
+        thead th {
+            color: white; padding: 12px 8px;
+            font-size: 13px; font-weight: 600;
+            text-align: center; border-right: 1px solid #2563eb;
         }
-        .jour-tab.active { background: #1a56db; color: white; border-color: #1a56db; }
-
-        .creneaux { display: flex; flex-direction: column; gap: 10px; }
-        .creneau-card {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid #e5e7eb;
-            padding: 14px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
+        thead th:first-child { width: 90px; }
+        tbody tr { border-bottom: 1px solid #e5e7eb; }
+        tbody tr:nth-child(even) { background: #f9fafb; }
+        tbody td {
+            padding: 10px 6px; text-align: center;
+            border-right: 1px solid #e5e7eb;
+            font-size: 12px; vertical-align: middle;
+            min-width: 120px;
         }
-        .creneau-heure {
-            background: #1a56db;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            min-width: 100px;
-            text-align: center;
-            flex-shrink: 0;
+        tbody td:first-child {
+            font-weight: 600; color: #1e3a8a;
+            background: #eff6ff; font-size: 11px;
         }
-        .creneau-info { flex: 1; }
-        .creneau-matiere { font-size: 14px; font-weight: 600; color: #1e3a8a; }
-        .creneau-prof { font-size: 12px; color: #6b7280; margin-top: 2px; }
-        .creneau-salle { font-size: 11px; color: #9ca3af; margin-top: 2px; }
-
-        .pill {
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
+        .cours {
+            display: inline-block; padding: 6px 8px;
+            border-radius: 8px; font-size: 11px;
+            font-weight: 600; line-height: 1.5; width: 100%;
         }
         .c1 { background: #dbeafe; color: #1e40af; }
         .c2 { background: #d1fae5; color: #065f46; }
@@ -120,24 +87,27 @@
         .c10 { background: #faf5ff; color: #581c87; }
         .c11 { background: #fff1f2; color: #881337; }
         .c12 { background: #f0f9ff; color: #0c4a6e; }
-
-        .chargement { text-align: center; padding: 40px; color: #6b7280; font-size: 14px; }
-        .vide { text-align: center; padding: 40px; color: #9ca3af; font-size: 14px; }
-
+        .vide { color: #9ca3af; font-size: 16px; }
+        .pause { color: #9ca3af; font-style: italic; font-size: 12px; }
+        .legende {
+            display: flex; flex-wrap: wrap; gap: 8px;
+            margin-top: 16px; padding: 12px;
+            background: white; border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+        .legende-title { font-size: 12px; font-weight: 600; color: #374151; width: 100%; }
+        .legende-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #374151; }
+        .legende-color { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
         .footer {
             text-align: center; padding: 16px; color: #9ca3af;
             font-size: 11px; border-top: 1px solid #e5e7eb;
             background: white; margin-top: 20px;
         }
-
         @media (min-width: 768px) {
             .navbar { padding: 15px 30px; }
             .navbar h1 { font-size: 18px; }
-            .navbar p { font-size: 13px; }
-            .nav-links button { font-size: 13px; padding: 8px 16px; }
             .container { margin: 30px auto; padding: 0 20px; }
             .page-title { font-size: 22px; }
-            .jour-tab { font-size: 13px; padding: 10px 20px; }
         }
     </style>
 </head>
@@ -157,7 +127,7 @@
 
 <div class="container">
     <div class="page-title">📅 Emploi du temps</div>
-    <div class="page-subtitle">Promotion P24 · UFR-SEA Informatique</div>
+    <div class="page-subtitle">Promotion P24 · UFR-SEA Informatique · Université Joseph Ki-Zerbo</div>
 
     <div class="semaine-nav">
         <button onclick="semainePrec()">◀ Précédente</button>
@@ -165,17 +135,108 @@
         <button onclick="semaineSuiv()">Suivante ▶</button>
     </div>
 
-    <div class="jours-tabs">
-        <button class="jour-tab active" onclick="afficherJour('Lundi', this)">Lundi</button>
-        <button class="jour-tab" onclick="afficherJour('Mardi', this)">Mardi</button>
-        <button class="jour-tab" onclick="afficherJour('Mercredi', this)">Mercredi</button>
-        <button class="jour-tab" onclick="afficherJour('Jeudi', this)">Jeudi</button>
-        <button class="jour-tab" onclick="afficherJour('Vendredi', this)">Vendredi</button>
-        <button class="jour-tab" onclick="afficherJour('Samedi', this)">Samedi</button>
+    <div class="tableau-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Horaire</th>
+                    <th>Lundi</th>
+                    <th>Mardi</th>
+                    <th>Mercredi</th>
+                    <th>Jeudi</th>
+                    <th>Vendredi</th>
+                    <th>Samedi</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <!-- ============================================ -->
+                <!-- MODIFIEZ ICI VOTRE EMPLOI DU TEMPS          -->
+                <!-- Pour chaque case mettez :                   -->
+                <!-- <span class="cours c1">Nom cours<br>        -->
+                <!-- <small>Prof</small></span>                  -->
+                <!-- Ou laissez : <span class="vide">—</span>    -->
+                <!-- ============================================ -->
+
+                <tr>
+                    <td>07h30<br>09h30</td>
+                    <!-- LUNDI 07h30-09h30 -->
+                    <td><span class="cours c1">Rech. opérationnelle<br><small>M. Séré</small></span></td>
+                    <!-- MARDI 07h30-09h30 -->
+                    <td><span class="cours c2">Struct. données<br><small>M. Sawadogo</small></span></td>
+                    <!-- MERCREDI 07h30-09h30 -->
+                    <td><span class="vide">—</span></td>
+                    <!-- JEUDI 07h30-09h30 -->
+                    <td><span class="cours c3">Calcul numérique<br><small>M. Traoré</small></span></td>
+                    <!-- VENDREDI 07h30-09h30 -->
+                    <td><span class="cours c4">Admin. BDD<br><small>M. Kaboré</small></span></td>
+                    <!-- SAMEDI 07h30-09h30 -->
+                    <td><span class="vide">—</span></td>
+                </tr>
+
+                <tr>
+                    <td>09h30<br>11h30</td>
+                    <td><span class="cours c5">Algèbre rel.<br><small>M. Kaboré</small></span></td>
+                    <td><span class="cours c6">Tech. compilation<br><small>Mme Sabané</small></span></td>
+                    <td><span class="cours c7">Prog. assembleur<br><small>M. Zeba</small></span></td>
+                    <td><span class="cours c8">Analyse SI<br><small>M. Béré</small></span></td>
+                    <td><span class="cours c9">Intro. réseaux<br><small>M. Barra</small></span></td>
+                    <td><span class="cours c10">Admin. réseaux<br><small>M. Barra</small></span></td>
+                </tr>
+
+                <tr>
+                    <td>11h30<br>13h00</td>
+                    <td><span class="cours c11">Gest. processus<br><small>M. Somda</small></span></td>
+                    <td><span class="cours c12">Prob. & stat.<br><small>M. Konkobo</small></span></td>
+                    <td><span class="cours c1">Rech. opérationnelle<br><small>M. Séré</small></span></td>
+                    <td><span class="vide">—</span></td>
+                    <td><span class="cours c2">Struct. données<br><small>M. Sawadogo</small></span></td>
+                    <td><span class="cours c3">Calcul numérique<br><small>M. Traoré</small></span></td>
+                </tr>
+
+                <tr>
+                    <td>13h00<br>15h00</td>
+                    <td colspan="6" class="pause">🍽️ Pause déjeuner</td>
+                </tr>
+
+                <tr>
+                    <td>15h00<br>17h00</td>
+                    <td><span class="cours c4">Admin. BDD<br><small>M. Kaboré</small></span></td>
+                    <td><span class="cours c5">Algèbre rel.<br><small>M. Kaboré</small></span></td>
+                    <td><span class="cours c6">Tech. compilation<br><small>Mme Sabané</small></span></td>
+                    <td><span class="cours c7">Prog. assembleur<br><small>M. Zeba</small></span></td>
+                    <td><span class="vide">—</span></td>
+                    <td><span class="cours c8">Analyse SI<br><small>M. Béré</small></span></td>
+                </tr>
+
+                <tr>
+                    <td>17h00<br>20h00</td>
+                    <td><span class="cours c9">Intro. réseaux<br><small>M. Barra</small></span></td>
+                    <td><span class="cours c10">Admin. réseaux<br><small>M. Barra</small></span></td>
+                    <td><span class="cours c11">Gest. processus<br><small>M. Somda</small></span></td>
+                    <td><span class="cours c12">Prob. & stat.<br><small>M. Konkobo</small></span></td>
+                    <td><span class="cours c1">Rech. opérationnelle<br><small>M. Séré</small></span></td>
+                    <td><span class="vide">—</span></td>
+                </tr>
+
+            </tbody>
+        </table>
     </div>
 
-    <div class="creneaux" id="creneaux">
-        <div class="chargement">⏳ Chargement...</div>
+    <div class="legende">
+        <div class="legende-title">Légende :</div>
+        <div class="legende-item"><div class="legende-color" style="background:#dbeafe;"></div>Rech. opérationnelle</div>
+        <div class="legende-item"><div class="legende-color" style="background:#d1fae5;"></div>Struct. données</div>
+        <div class="legende-item"><div class="legende-color" style="background:#fef3c7;"></div>Calc. numérique</div>
+        <div class="legende-item"><div class="legende-color" style="background:#ede9fe;"></div>Admin. BDD</div>
+        <div class="legende-item"><div class="legende-color" style="background:#fee2e2;"></div>Algèbre rel.</div>
+        <div class="legende-item"><div class="legende-color" style="background:#fce7f3;"></div>Tech. compilation</div>
+        <div class="legende-item"><div class="legende-color" style="background:#ecfdf5;"></div>Prog. assembleur</div>
+        <div class="legende-item"><div class="legende-color" style="background:#fff7ed;"></div>Analyse SI</div>
+        <div class="legende-item"><div class="legende-color" style="background:#f0fdf4;"></div>Intro. réseaux</div>
+        <div class="legende-item"><div class="legende-color" style="background:#faf5ff;"></div>Admin. réseaux</div>
+        <div class="legende-item"><div class="legende-color" style="background:#fff1f2;"></div>Gest. processus</div>
+        <div class="legende-item"><div class="legende-color" style="background:#f0f9ff;"></div>Prob. & stat.</div>
     </div>
 </div>
 
@@ -183,24 +244,8 @@
     UFR-SEA · Informatique · P24 · Université Joseph Ki-Zerbo · Ouagadougou
 </div>
 
-<script src="supabase.js"></script>
 <script>
     let semaineOffset = 0;
-    let jourActuel = 'Lundi';
-    let tousLesCreneaux = [];
-
-    const couleurs = ['c1','c2','c3','c4','c5','c6','c7','c8','c9','c10','c11','c12'];
-    const matieresCouleurs = {};
-    let couleurIndex = 0;
-
-    function getCouleur(matiere) {
-        if (!matieresCouleurs[matiere]) {
-            matieresCouleurs[matiere] = couleurs[couleurIndex % couleurs.length];
-            couleurIndex++;
-        }
-        return matieresCouleurs[matiere];
-    }
-
     function getSemaine(offset) {
         const today = new Date();
         const lundi = new Date(today);
@@ -208,81 +253,11 @@
         const samedi = new Date(lundi);
         samedi.setDate(lundi.getDate() + 5);
         const options = { day: 'numeric', month: 'long' };
-        return `${lundi.toLocaleDateString('fr-FR', options)} — ${samedi.toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'})}`;
+        return `Semaine du ${lundi.toLocaleDateString('fr-FR', options)} au ${samedi.toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'})}`;
     }
-
-    function getSemaineKey(offset) {
-        const today = new Date();
-        const lundi = new Date(today);
-        lundi.setDate(today.getDate() - today.getDay() + 1 + (offset * 7));
-        return `S${lundi.getFullYear()}-${String(lundi.getMonth()+1).padStart(2,'0')}-${String(lundi.getDate()).padStart(2,'0')}`;
-    }
-
-    function semainePrec() {
-        semaineOffset--;
-        document.getElementById('semaine-label').textContent = getSemaine(semaineOffset);
-        chargerCreneaux();
-    }
-
-    function semaineSuiv() {
-        semaineOffset++;
-        document.getElementById('semaine-label').textContent = getSemaine(semaineOffset);
-        chargerCreneaux();
-    }
-
-    async function chargerCreneaux() {
-        document.getElementById('creneaux').innerHTML = '<div class="chargement">⏳ Chargement...</div>';
-        try {
-            const semaine = getSemaineKey(semaineOffset);
-            const creneaux = await getEmploiDuTemps(semaine);
-            tousLesCreneaux = creneaux;
-            afficherJourCreneaux(jourActuel);
-        } catch(e) {
-            document.getElementById('creneaux').innerHTML = '<div class="chargement">❌ Erreur.</div>';
-        }
-    }
-
-    function afficherJour(jour, btn) {
-        document.querySelectorAll('.jour-tab').forEach(t => t.classList.remove('active'));
-        if (btn) btn.classList.add('active');
-        jourActuel = jour;
-        afficherJourCreneaux(jour);
-    }
-
-    function afficherJourCreneaux(jour) {
-        const container = document.getElementById('creneaux');
-        const creneaux = tousLesCreneaux
-            .filter(c => c.jour === jour)
-            .sort((a, b) => a.heure_debut.localeCompare(b.heure_debut));
-
-        if (creneaux.length === 0) {
-            container.innerHTML = `
-                <div class="vide">
-                    <div style="font-size:40px; margin-bottom:12px;">📭</div>
-                    <div>Aucun cours ce ${jour}</div>
-                </div>`;
-            return;
-        }
-
-        container.innerHTML = creneaux.map(c => {
-            const couleur = getCouleur(c.matiere);
-            return `
-                <div class="creneau-card">
-                    <div class="creneau-heure">${c.heure_debut}<br>↓<br>${c.heure_fin}</div>
-                    <div class="creneau-info">
-                        <div class="creneau-matiere">${c.matiere}</div>
-                        <div class="creneau-prof">👨‍🏫 ${c.professeur}</div>
-                        ${c.salle ? `<div class="creneau-salle">🏫 Salle : ${c.salle}</div>` : ''}
-                    </div>
-                    <span class="pill ${couleur}">${c.jour}</span>
-                </div>
-            `;
-        }).join('');
-    }
-
-    // Initialisation
+    function semainePrec() { semaineOffset--; document.getElementById('semaine-label').textContent = getSemaine(semaineOffset); }
+    function semaineSuiv() { semaineOffset++; document.getElementById('semaine-label').textContent = getSemaine(semaineOffset); }
     document.getElementById('semaine-label').textContent = getSemaine(0);
-    chargerCreneaux();
 </script>
 
 </body>
