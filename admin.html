@@ -138,6 +138,34 @@
         .upload-zone p { font-size: 12px; color: #6b7280; margin-top: 6px; }
         .upload-zone input { display: none; }
 
+        .progress-bar {
+            width: 100%; height: 8px;
+            background: #e5e7eb; border-radius: 4px;
+            margin-top: 10px; display: none;
+        }
+        .progress-fill {
+            height: 100%; background: #1e3a8a;
+            border-radius: 4px; width: 0%;
+            transition: width 0.3s;
+        }
+
+        .docs-liste { margin-top: 10px; }
+        .doc-item {
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px; background: #f9fafb;
+            border-radius: 8px; margin-bottom: 8px;
+            border: 1px solid #e5e7eb;
+            flex-wrap: wrap; gap: 8px;
+        }
+        .doc-item-info { font-size: 13px; color: #374151; flex: 1; }
+        .doc-item-info small { font-size: 11px; color: #6b7280; display: block; }
+        .btn-supprimer {
+            padding: 4px 10px; background: #fee2e2;
+            color: #991b1b; border: none; border-radius: 6px;
+            font-size: 11px; cursor: pointer;
+        }
+
         .code-secret {
             background: #f0fdf4; border: 1px solid #bbf7d0;
             border-radius: 8px; padding: 10px 14px;
@@ -248,23 +276,24 @@
 
         <div class="tabs">
             <button class="tab active" onclick="afficherOnglet('docs', this)">📄 Cours</button>
+            <button class="tab" onclick="afficherOnglet('liste-docs', this)">📋 Liste docs</button>
             <button class="tab" onclick="afficherOnglet('etudiants', this)">👥 Étudiants</button>
             <button class="tab" onclick="afficherOnglet('profs', this)">🔑 Codes Profs</button>
             <button class="tab" onclick="afficherOnglet('annonces', this)">📢 Annonces</button>
         </div>
 
-        <!-- ONGLET DOCUMENTS -->
+        <!-- ONGLET UPLOAD DOCUMENTS -->
         <div class="tab-content active" id="tab-docs">
             <div class="section-card">
                 <div class="section-header">
                     <span>📄</span>
-                    <h3>Ajouter un cours ou exercice</h3>
+                    <h3>Ajouter un cours, TD, TP ou Devoir</h3>
                 </div>
                 <div class="section-body">
                     <div class="fg">
                         <label>Matière</label>
                         <select id="upload-matiere">
-                            <option value="">-- Choisissez --</option>
+                            <option value="">-- Choisissez la matière --</option>
                             <option value="ro">Recherche opérationnelle — M. Séré</option>
                             <option value="sda">Structure de données avancée — M. Sawadogo</option>
                             <option value="cn">Calcul numérique — M. Traoré</option>
@@ -281,7 +310,7 @@
                     </div>
                     <div class="fg">
                         <label>Titre du document</label>
-                        <input type="text" id="upload-titre" placeholder="Ex: Cours Chapitre 1" />
+                        <input type="text" id="upload-titre" placeholder="Ex: Cours Chapitre 1 — Introduction" />
                     </div>
                     <div class="fg">
                         <label>Professeur</label>
@@ -300,24 +329,44 @@
                         </select>
                     </div>
                     <div class="fg">
-                        <label>Type</label>
+                        <label>Type de document</label>
                         <select id="upload-type">
                             <option value="Cours">📘 Cours</option>
                             <option value="TD">📝 TD / Exercices</option>
                             <option value="TP">💻 TP</option>
-                            <option value="Examen">📋 Examen</option>
+                            <option value="Devoir">📋 Devoir / Examen</option>
                         </select>
                     </div>
                     <div class="fg">
-                        <label>Fichier PDF</label>
+                        <label>Fichier (PDF, Word, PowerPoint...)</label>
                         <div class="upload-zone" onclick="document.getElementById('fichier-input').click()">
-                            <div style="font-size:32px;">📁</div>
+                            <div style="font-size:36px;">📁</div>
                             <p>Cliquez pour sélectionner un fichier</p>
-                            <input type="file" id="fichier-input" accept=".pdf,.doc,.docx" onchange="afficherFichier(this)" />
+                            <input type="file" id="fichier-input"
+                                accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt"
+                                onchange="afficherFichier(this)" />
                         </div>
-                        <div id="fichier-nom" style="font-size:12px; color:#065f46; display:none; padding:8px; background:#f0fdf4; border-radius:8px;"></div>
+                        <div id="fichier-nom" style="font-size:12px; color:#065f46; display:none; padding:8px; background:#f0fdf4; border-radius:8px; margin-bottom:8px;"></div>
+                        <div class="progress-bar" id="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
                     </div>
                     <button class="btn-submit" id="btn-upload" onclick="publierDocument()">⬆️ Publier le document</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ONGLET LISTE DOCUMENTS -->
+        <div class="tab-content" id="tab-liste-docs">
+            <div class="section-card">
+                <div class="section-header">
+                    <span>📋</span>
+                    <h3>Documents publiés</h3>
+                </div>
+                <div class="section-body">
+                    <div id="liste-docs">
+                        <div class="chargement">⏳ Chargement...</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -434,7 +483,6 @@
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('admin-panel').style.display = 'block';
             chargerStats();
-            chargerEtudiants();
         } else {
             document.getElementById('msg-error').style.display = 'block';
         }
@@ -446,6 +494,7 @@
         btn.classList.add('active');
         document.getElementById('tab-' + nom).classList.add('active');
         if (nom === 'etudiants') chargerEtudiants();
+        if (nom === 'liste-docs') chargerListeDocs();
     }
 
     async function chargerStats() {
@@ -474,12 +523,35 @@
                     <div class="etudiant-avatar">👤</div>
                     <div>
                         <div class="etudiant-nom">${e.nom}</div>
-                        <div class="etudiant-info">${e.email} · ${e.numero}</div>
+                        <div class="etudiant-info">${e.email} · INE: ${e.numero}</div>
                     </div>
                 </div>
             `).join('');
         } catch(e) {
             document.getElementById('liste-etudiants').innerHTML =
+                '<div class="chargement">❌ Erreur.</div>';
+        }
+    }
+
+    async function chargerListeDocs() {
+        try {
+            const docs = await getDocuments();
+            const liste = document.getElementById('liste-docs');
+            if (!docs || docs.length === 0) {
+                liste.innerHTML = '<div class="chargement">📂 Aucun document publié.</div>';
+                return;
+            }
+            liste.innerHTML = docs.map(d => `
+                <div class="doc-item">
+                    <div class="doc-item-info">
+                        <strong>${d.titre}</strong>
+                        <small>${d.type_doc} · ${d.professeur} · ${new Date(d.date_ajout).toLocaleDateString('fr-FR')}</small>
+                    </div>
+                    <a href="${d.url_fichier}" target="_blank" style="padding:4px 10px; background:#dbeafe; color:#1e40af; border:none; border-radius:6px; font-size:11px; text-decoration:none;">👁️ Voir</a>
+                </div>
+            `).join('');
+        } catch(e) {
+            document.getElementById('liste-docs').innerHTML =
                 '<div class="chargement">❌ Erreur.</div>';
         }
     }
@@ -499,6 +571,8 @@
         const type = document.getElementById('upload-type').value;
         const fichier = document.getElementById('fichier-input').files[0];
         const btn = document.getElementById('btn-upload');
+        const progressBar = document.getElementById('progress-bar');
+        const progressFill = document.getElementById('progress-fill');
 
         if (!matiere || !titre || !prof || !fichier) {
             alert('⚠️ Remplissez tous les champs !');
@@ -507,13 +581,25 @@
 
         btn.disabled = true;
         btn.textContent = '⏳ Publication...';
+        progressBar.style.display = 'block';
+        progressFill.style.width = '30%';
 
         try {
-            const nomFichier = Date.now() + '_' + fichier.name.replace(/\s/g, '_');
+            const nomFichier = Date.now() + '_' + fichier.name
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-zA-Z0-9._-]/g, '_')
+                .replace(/__+/g, '_');
+
+            progressFill.style.width = '60%';
             const urlFichier = await uploadPDF(fichier, nomFichier);
+            progressFill.style.width = '90%';
+
             if (urlFichier) {
                 await ajouterDocument(titre, matiere, type, prof, urlFichier);
-                alert('✅ "' + titre + '" publié !');
+                progressFill.style.width = '100%';
+                setTimeout(() => { progressBar.style.display = 'none'; progressFill.style.width = '0%'; }, 1000);
+                alert('✅ "' + titre + '" publié avec succès !');
                 document.getElementById('upload-matiere').value = '';
                 document.getElementById('upload-titre').value = '';
                 document.getElementById('upload-prof').value = '';
@@ -521,9 +607,11 @@
                 document.getElementById('fichier-nom').style.display = 'none';
                 chargerStats();
             } else {
-                alert('❌ Erreur upload !');
+                progressBar.style.display = 'none';
+                alert('❌ Erreur upload ! Vérifiez le fichier.');
             }
         } catch(e) {
+            progressBar.style.display = 'none';
             alert('❌ ' + e.message);
         }
 

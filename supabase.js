@@ -73,20 +73,27 @@ async function getAnnonces() {
 }
 
 async function uploadPDF(fichier, nomFichier) {
-    const url = `${SUPABASE_URL}/storage/v1/object/cours/${nomFichier}`;
+    // Nettoyer le nom du fichier
+    const nomPropre = nomFichier
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-zA-Z0-9._-]/g, '_')
+        .replace(/__+/g, '_');
+
+    const url = `${SUPABASE_URL}/storage/v1/object/cours/${nomPropre}`;
     try {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'apikey': SUPABASE_KEY,
                 'Authorization': `Bearer ${SUPABASE_KEY}`,
-                'Content-Type': fichier.type,
+                'Content-Type': fichier.type || 'application/octet-stream',
                 'x-upsert': 'true'
             },
             body: fichier
         });
         if (response.ok) {
-            return `${SUPABASE_URL}/storage/v1/object/public/cours/${nomFichier}`;
+            return `${SUPABASE_URL}/storage/v1/object/public/cours/${nomPropre}`;
         }
         const err = await response.json();
         console.error('Upload error:', err);
