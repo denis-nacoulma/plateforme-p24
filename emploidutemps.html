@@ -9,63 +9,98 @@
         body { font-family: Arial, sans-serif; background: #f0f4f8; }
         .navbar {
             background: #1a56db;
-            padding: 15px 30px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
         }
-        .navbar h1 { color: white; font-size: 18px; }
-        .navbar p { color: #bfdbfe; font-size: 13px; }
-        .nav-links { display: flex; gap: 10px; }
+        .navbar h1 { color: white; font-size: 15px; }
+        .navbar p { color: #bfdbfe; font-size: 11px; }
+        .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
         .nav-links button {
             background: transparent;
             border: 1px solid white;
             color: white;
-            padding: 8px 16px;
+            padding: 6px 10px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 11px;
         }
         .nav-links button:hover { background: white; color: #1a56db; }
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        .page-title { font-size: 22px; color: #1e3a8a; margin-bottom: 6px; }
-        .page-subtitle { font-size: 14px; color: #6b7280; margin-bottom: 24px; }
-        .semaine-nav { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+
+        .container { max-width: 1200px; margin: 16px auto; padding: 0 12px; }
+        .page-title { font-size: 18px; color: #1e3a8a; margin-bottom: 4px; }
+        .page-subtitle { font-size: 12px; color: #6b7280; margin-bottom: 16px; }
+
+        .semaine-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
         .semaine-nav button {
-            background: white; border: 1px solid #d1d5db;
-            padding: 8px 16px; border-radius: 8px;
-            cursor: pointer; font-size: 13px; color: #374151;
+            background: white;
+            border: 1px solid #d1d5db;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #374151;
         }
-        .semaine-nav button:hover { background: #f3f4f6; }
-        .semaine-label { font-size: 15px; font-weight: 600; color: #1e3a8a; }
+        .semaine-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e3a8a;
+            flex: 1;
+            text-align: center;
+        }
+
         .tableau-container {
-            background: white; border-radius: 16px;
-            border: 1px solid #e5e7eb; overflow: auto;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
-        table { width: 100%; border-collapse: collapse; min-width: 900px; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
         thead tr { background: #1a56db; }
         thead th {
-            color: white; padding: 14px 8px;
-            font-size: 13px; font-weight: 600;
-            text-align: center; border-right: 1px solid #2563eb;
+            color: white;
+            padding: 10px 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            border-right: 1px solid #2563eb;
         }
-        thead th:first-child { width: 110px; }
+        thead th:first-child { width: 80px; }
         tbody tr:nth-child(even) { background: #f9fafb; }
         tbody tr:hover { background: #eff6ff; }
         tbody td {
-            padding: 12px 8px; text-align: center;
+            padding: 8px 4px;
+            text-align: center;
             border-right: 1px solid #e5e7eb;
             border-bottom: 1px solid #e5e7eb;
-            font-size: 12px; color: #374151; vertical-align: middle;
+            font-size: 11px;
+            color: #374151;
+            vertical-align: middle;
         }
         tbody td:first-child {
-            font-weight: 600; color: #1e3a8a;
-            background: #eff6ff; font-size: 12px;
+            font-weight: 600;
+            color: #1e3a8a;
+            background: #eff6ff;
+            font-size: 10px;
+            padding: 8px 4px;
         }
         .cours {
-            display: inline-block; padding: 5px 8px;
-            border-radius: 8px; font-size: 11px;
-            font-weight: 600; line-height: 1.5;
+            display: inline-block;
+            padding: 4px 6px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 1.4;
         }
         .c1 { background: #dbeafe; color: #1e40af; }
         .c2 { background: #d1fae5; color: #065f46; }
@@ -79,21 +114,40 @@
         .c10 { background: #faf5ff; color: #581c87; }
         .c11 { background: #fff1f2; color: #881337; }
         .c12 { background: #f0f9ff; color: #0c4a6e; }
-        .cours-vide { color: #9ca3af; font-size: 16px; }
+        .cours-vide { color: #9ca3af; font-size: 14px; }
+
         .legende {
-            display: flex; flex-wrap: wrap; gap: 10px;
-            margin-top: 20px; padding: 16px;
-            background: white; border-radius: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+            padding: 12px;
+            background: white;
+            border-radius: 12px;
             border: 1px solid #e5e7eb;
         }
-        .legende-title { font-size: 13px; font-weight: 600; color: #374151; width: 100%; margin-bottom: 4px; }
-        .legende-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #374151; }
-        .legende-color { width: 12px; height: 12px; border-radius: 4px; }
+        .legende-title { font-size: 12px; font-weight: 600; color: #374151; width: 100%; }
+        .legende-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #374151; }
+        .legende-color { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
         .footer {
-            text-align: center; padding: 20px;
-            color: #9ca3af; font-size: 13px;
-            border-top: 1px solid #e5e7eb;
-            background: white; margin-top: 30px;
+            text-align: center; padding: 16px; color: #9ca3af;
+            font-size: 11px; border-top: 1px solid #e5e7eb;
+            background: white; margin-top: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .navbar { padding: 15px 30px; }
+            .navbar h1 { font-size: 18px; }
+            .navbar p { font-size: 13px; }
+            .nav-links button { font-size: 13px; padding: 8px 16px; }
+            .container { margin: 30px auto; padding: 0 20px; }
+            .page-title { font-size: 22px; }
+            .page-subtitle { font-size: 14px; }
+            .semaine-label { font-size: 15px; }
+            thead th { padding: 14px 8px; font-size: 13px; }
+            tbody td { padding: 12px 8px; font-size: 12px; }
+            .cours { font-size: 11px; padding: 5px 8px; }
         }
     </style>
 </head>
@@ -102,23 +156,23 @@
 <nav class="navbar">
     <div>
         <h1>UFR-SEA Informatique</h1>
-        <p>Université Joseph Ki-Zerbo · Promotion P24</p>
+        <p>Université Joseph Ki-Zerbo · P24</p>
     </div>
     <div class="nav-links">
-        <button onclick="window.location='index.html'">🏠 Accueil</button>
-        <button onclick="window.location='cahier.html'">📓 Cahier de texte</button>
-        <button onclick="window.location='cours.html'">📚 Cours</button>
+        <button onclick="window.location='index.html'">🏠</button>
+        <button onclick="window.location='cahier.html'">📓</button>
+        <button onclick="window.location='cours.html'">📚</button>
     </div>
 </nav>
 
 <div class="container">
     <div class="page-title">📅 Emploi du temps</div>
-    <div class="page-subtitle">Promotion P24 · UFR-SEA Informatique · Université Joseph Ki-Zerbo</div>
+    <div class="page-subtitle">Promotion P24 · UFR-SEA Informatique</div>
 
     <div class="semaine-nav">
-        <button onclick="semainePrec()">◀ Semaine précédente</button>
+        <button onclick="semainePrec()">◀</button>
         <span class="semaine-label" id="semaine-label"></span>
-        <button onclick="semaineSuiv()">Semaine suivante ▶</button>
+        <button onclick="semaineSuiv()">▶</button>
     </div>
 
     <div class="tableau-container">
@@ -136,72 +190,72 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>07h30 - 09h30</td>
-                    <td><span class="cours c1">Recherche opérationnelle<br><small>M. Séré</small></span></td>
-                    <td><span class="cours c2">Structure de données avancée<br><small>M. Sawadogo</small></span></td>
+                    <td>07h30<br>09h30</td>
+                    <td><span class="cours c1">Rech. opérat.<br><small>M. Séré</small></span></td>
+                    <td><span class="cours c2">Struct. données<br><small>M. Sawadogo</small></span></td>
                     <td><span class="cours-vide">—</span></td>
-                    <td><span class="cours c3">Calcul numérique<br><small>M. Traoré</small></span></td>
-                    <td><span class="cours c4">Admin. bases de données<br><small>M. Kaboré</small></span></td>
-                    <td><span class="cours c5">Algèbre relationnelle<br><small>M. Kaboré</small></span></td>
+                    <td><span class="cours c3">Calc. numérique<br><small>M. Traoré</small></span></td>
+                    <td><span class="cours c4">Admin. BDD<br><small>M. Kaboré</small></span></td>
+                    <td><span class="cours c5">Algèbre rel.<br><small>M. Kaboré</small></span></td>
                 </tr>
                 <tr>
-                    <td>09h30 - 11h30</td>
-                    <td><span class="cours c6">Technique de compilation<br><small>Mme Sabané</small></span></td>
-                    <td><span class="cours c7">Programmation assembleur<br><small>M. Zeba</small></span></td>
-                    <td><span class="cours c1">Recherche opérationnelle<br><small>M. Séré</small></span></td>
-                    <td><span class="cours c8">Analyse conception SI<br><small>M. Béré</small></span></td>
-                    <td><span class="cours c9">Intro. réseaux info.<br><small>M. Barra</small></span></td>
+                    <td>09h30<br>11h30</td>
+                    <td><span class="cours c6">Tech. compilation<br><small>Mme Sabané</small></span></td>
+                    <td><span class="cours c7">Prog. assembleur<br><small>M. Zeba</small></span></td>
+                    <td><span class="cours c1">Rech. opérat.<br><small>M. Séré</small></span></td>
+                    <td><span class="cours c8">Analyse SI<br><small>M. Béré</small></span></td>
+                    <td><span class="cours c9">Intro. réseaux<br><small>M. Barra</small></span></td>
                     <td><span class="cours-vide">—</span></td>
                 </tr>
                 <tr>
-                    <td>11h30 - 13h00</td>
-                    <td><span class="cours c10">Admin. réseaux info.<br><small>M. Barra</small></span></td>
-                    <td><span class="cours c3">Calcul numérique<br><small>M. Traoré</small></span></td>
-                    <td><span class="cours c11">Gestion des processus<br><small>M. Somda</small></span></td>
+                    <td>11h30<br>13h00</td>
+                    <td><span class="cours c10">Admin. réseaux<br><small>M. Barra</small></span></td>
+                    <td><span class="cours c3">Calc. numérique<br><small>M. Traoré</small></span></td>
+                    <td><span class="cours c11">Gest. processus<br><small>M. Somda</small></span></td>
                     <td><span class="cours-vide">—</span></td>
-                    <td><span class="cours c12">Probabilité et statistique<br><small>M. Konkobo</small></span></td>
-                    <td><span class="cours c2">Structure de données avancée<br><small>M. Sawadogo</small></span></td>
+                    <td><span class="cours c12">Prob. & stat.<br><small>M. Konkobo</small></span></td>
+                    <td><span class="cours c2">Struct. données<br><small>M. Sawadogo</small></span></td>
                 </tr>
                 <tr>
-                    <td>13h00 - 15h00</td>
-                    <td colspan="6" style="color:#9ca3af; font-style:italic;">Pause déjeuner</td>
+                    <td>13h00<br>15h00</td>
+                    <td colspan="6" style="color:#9ca3af; font-style:italic; font-size:12px;">Pause déjeuner</td>
                 </tr>
                 <tr>
-                    <td>15h00 - 17h00</td>
-                    <td><span class="cours c8">Analyse conception SI<br><small>M. Béré</small></span></td>
-                    <td><span class="cours c4">Admin. bases de données<br><small>M. Kaboré</small></span></td>
-                    <td><span class="cours c2">Structure de données avancée<br><small>M. Sawadogo</small></span></td>
-                    <td><span class="cours c6">Technique de compilation<br><small>Mme Sabané</small></span></td>
+                    <td>15h00<br>17h00</td>
+                    <td><span class="cours c8">Analyse SI<br><small>M. Béré</small></span></td>
+                    <td><span class="cours c4">Admin. BDD<br><small>M. Kaboré</small></span></td>
+                    <td><span class="cours c2">Struct. données<br><small>M. Sawadogo</small></span></td>
+                    <td><span class="cours c6">Tech. compilation<br><small>Mme Sabané</small></span></td>
                     <td><span class="cours-vide">—</span></td>
-                    <td><span class="cours c11">Gestion des processus<br><small>M. Somda</small></span></td>
+                    <td><span class="cours c11">Gest. processus<br><small>M. Somda</small></span></td>
                 </tr>
                 <tr>
-                    <td>17h00 - 19h00</td>
-                    <td><span class="cours c12">Probabilité et statistique<br><small>M. Konkobo</small></span></td>
-                    <td><span class="cours c9">Intro. réseaux info.<br><small>M. Barra</small></span></td>
-                    <td><span class="cours c7">Programmation assembleur<br><small>M. Zeba</small></span></td>
-                    <td><span class="cours c5">Algèbre relationnelle<br><small>M. Kaboré</small></span></td>
-                    <td><span class="cours c10">Admin. réseaux info.<br><small>M. Barra</small></span></td>
-                    <td><span class="cours c3">Calcul numérique<br><small>M. Traoré</small></span></td>
+                    <td>17h00<br>19h00</td>
+                    <td><span class="cours c12">Prob. & stat.<br><small>M. Konkobo</small></span></td>
+                    <td><span class="cours c9">Intro. réseaux<br><small>M. Barra</small></span></td>
+                    <td><span class="cours c7">Prog. assembleur<br><small>M. Zeba</small></span></td>
+                    <td><span class="cours c5">Algèbre rel.<br><small>M. Kaboré</small></span></td>
+                    <td><span class="cours c10">Admin. réseaux<br><small>M. Barra</small></span></td>
+                    <td><span class="cours c3">Calc. numérique<br><small>M. Traoré</small></span></td>
                 </tr>
             </tbody>
         </table>
     </div>
 
     <div class="legende">
-        <div class="legende-title">Légende des matières :</div>
-        <div class="legende-item"><div class="legende-color" style="background:#dbeafe;"></div>Recherche opérationnelle</div>
-        <div class="legende-item"><div class="legende-color" style="background:#d1fae5;"></div>Structure de données avancée</div>
-        <div class="legende-item"><div class="legende-color" style="background:#fef3c7;"></div>Calcul numérique</div>
-        <div class="legende-item"><div class="legende-color" style="background:#ede9fe;"></div>Admin. bases de données</div>
-        <div class="legende-item"><div class="legende-color" style="background:#fee2e2;"></div>Algèbre relationnelle</div>
-        <div class="legende-item"><div class="legende-color" style="background:#fce7f3;"></div>Technique de compilation</div>
-        <div class="legende-item"><div class="legende-color" style="background:#ecfdf5;"></div>Programmation assembleur</div>
-        <div class="legende-item"><div class="legende-color" style="background:#fff7ed;"></div>Analyse conception SI</div>
-        <div class="legende-item"><div class="legende-color" style="background:#f0fdf4;"></div>Intro. réseaux info.</div>
-        <div class="legende-item"><div class="legende-color" style="background:#faf5ff;"></div>Admin. réseaux info.</div>
-        <div class="legende-item"><div class="legende-color" style="background:#fff1f2;"></div>Gestion des processus</div>
-        <div class="legende-item"><div class="legende-color" style="background:#f0f9ff;"></div>Probabilité et statistique</div>
+        <div class="legende-title">Légende :</div>
+        <div class="legende-item"><div class="legende-color" style="background:#dbeafe;"></div>Rech. opérationnelle</div>
+        <div class="legende-item"><div class="legende-color" style="background:#d1fae5;"></div>Struct. données</div>
+        <div class="legende-item"><div class="legende-color" style="background:#fef3c7;"></div>Calc. numérique</div>
+        <div class="legende-item"><div class="legende-color" style="background:#ede9fe;"></div>Admin. BDD</div>
+        <div class="legende-item"><div class="legende-color" style="background:#fee2e2;"></div>Algèbre rel.</div>
+        <div class="legende-item"><div class="legende-color" style="background:#fce7f3;"></div>Tech. compilation</div>
+        <div class="legende-item"><div class="legende-color" style="background:#ecfdf5;"></div>Prog. assembleur</div>
+        <div class="legende-item"><div class="legende-color" style="background:#fff7ed;"></div>Analyse SI</div>
+        <div class="legende-item"><div class="legende-color" style="background:#f0fdf4;"></div>Intro. réseaux</div>
+        <div class="legende-item"><div class="legende-color" style="background:#faf5ff;"></div>Admin. réseaux</div>
+        <div class="legende-item"><div class="legende-color" style="background:#fff1f2;"></div>Gest. processus</div>
+        <div class="legende-item"><div class="legende-color" style="background:#f0f9ff;"></div>Prob. & stat.</div>
     </div>
 </div>
 
@@ -217,8 +271,8 @@
         lundi.setDate(today.getDate() - today.getDay() + 1 + (offset * 7));
         const samedi = new Date(lundi);
         samedi.setDate(lundi.getDate() + 5);
-        const options = { day: 'numeric', month: 'long', year: 'numeric' };
-        return `Semaine du ${lundi.toLocaleDateString('fr-FR', options)} au ${samedi.toLocaleDateString('fr-FR', options)}`;
+        const options = { day: 'numeric', month: 'long' };
+        return `${lundi.toLocaleDateString('fr-FR', options)} — ${samedi.toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'})}`;
     }
     function semainePrec() { semaineOffset--; document.getElementById('semaine-label').textContent = getSemaine(semaineOffset); }
     function semaineSuiv() { semaineOffset++; document.getElementById('semaine-label').textContent = getSemaine(semaineOffset); }

@@ -9,55 +9,56 @@
         body { font-family: Arial, sans-serif; background: #f0f4f8; }
         .navbar {
             background: #1e3a8a;
-            padding: 15px 30px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
         }
-        .navbar h1 { color: white; font-size: 18px; }
-        .navbar p { color: #93c5fd; font-size: 13px; }
-        .nav-links { display: flex; gap: 10px; }
+        .navbar h1 { color: white; font-size: 15px; }
+        .navbar p { color: #93c5fd; font-size: 11px; }
+        .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
         .nav-links button {
             background: transparent;
             border: 1px solid white;
             color: white;
-            padding: 8px 16px;
+            padding: 6px 10px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 11px;
         }
         .nav-links button:hover { background: white; color: #1e3a8a; }
 
-        /* LOGIN */
         .login-screen {
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: calc(100vh - 60px);
-            padding: 20px;
+            padding: 20px 16px;
         }
         .login-card {
             background: white;
             border-radius: 16px;
-            padding: 40px;
+            padding: 24px 20px;
             width: 100%;
             max-width: 400px;
             border: 1px solid #e5e7eb;
             text-align: center;
         }
-        .login-card .icon { font-size: 48px; margin-bottom: 16px; }
-        .login-card h2 { font-size: 22px; color: #1e3a8a; margin-bottom: 8px; }
-        .login-card p { font-size: 13px; color: #6b7280; margin-bottom: 24px; }
-        .form-group { margin-bottom: 16px; text-align: left; }
+        .login-card .icon { font-size: 40px; margin-bottom: 12px; }
+        .login-card h2 { font-size: 20px; color: #1e3a8a; margin-bottom: 6px; }
+        .login-card p { font-size: 13px; color: #6b7280; margin-bottom: 20px; }
+        .form-group { margin-bottom: 14px; text-align: left; }
         .form-group label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
         .form-group input {
-            width: 100%; padding: 10px 14px;
+            width: 100%; padding: 12px 14px;
             border: 1px solid #d1d5db; border-radius: 8px;
-            font-size: 14px; outline: none;
+            font-size: 15px; outline: none;
         }
         .form-group input:focus { border-color: #1e3a8a; }
         .btn-login {
-            width: 100%; padding: 12px;
+            width: 100%; padding: 14px;
             background: #1e3a8a; color: white;
             border: none; border-radius: 8px;
             font-size: 15px; cursor: pointer;
@@ -66,30 +67,29 @@
         .msg-error {
             background: #fee2e2; color: #991b1b;
             padding: 10px; border-radius: 8px;
-            font-size: 13px; margin-bottom: 16px;
+            font-size: 13px; margin-bottom: 14px;
             display: none; text-align: center;
         }
 
-        /* PANEL */
         .admin-panel { display: none; }
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-        .page-title { font-size: 22px; color: #1e3a8a; margin-bottom: 6px; }
-        .page-subtitle { font-size: 14px; color: #6b7280; margin-bottom: 24px; }
+        .container { max-width: 1100px; margin: 16px auto; padding: 0 12px; }
+        .page-title { font-size: 18px; color: #1e3a8a; margin-bottom: 4px; }
+        .page-subtitle { font-size: 12px; color: #6b7280; margin-bottom: 16px; }
 
-        .stats-bar { display: flex; gap: 16px; margin-bottom: 30px; flex-wrap: wrap; }
+        .stats-bar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
         .stat {
-            background: white; border-radius: 12px;
-            border: 1px solid #e5e7eb; padding: 16px 24px;
-            flex: 1; min-width: 150px;
+            background: white; border-radius: 10px;
+            border: 1px solid #e5e7eb; padding: 12px 14px;
+            flex: 1; min-width: 80px;
         }
-        .stat-label { font-size: 12px; color: #6b7280; margin-bottom: 4px; }
-        .stat-val { font-size: 24px; font-weight: 600; color: #1e3a8a; }
+        .stat-label { font-size: 11px; color: #6b7280; margin-bottom: 4px; }
+        .stat-val { font-size: 20px; font-weight: 600; color: #1e3a8a; }
 
-        .tabs { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+        .tabs { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
         .tab {
-            padding: 10px 20px; border-radius: 10px;
+            padding: 8px 14px; border-radius: 10px;
             border: 1px solid #d1d5db; background: white;
-            font-size: 13px; cursor: pointer; color: #374151;
+            font-size: 12px; cursor: pointer; color: #374151;
         }
         .tab.active { background: #1e3a8a; color: white; border-color: #1e3a8a; }
 
@@ -99,23 +99,23 @@
         .section-card {
             background: white; border-radius: 12px;
             border: 1px solid #e5e7eb; overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
         .section-header {
-            padding: 16px 20px;
+            padding: 12px 16px;
             border-bottom: 1px solid #e5e7eb;
             background: #f9fafb;
-            display: flex; align-items: center; gap: 10px;
+            display: flex; align-items: center; gap: 8px;
         }
-        .section-header h3 { font-size: 15px; font-weight: 600; color: #1e3a8a; }
-        .section-body { padding: 20px; }
+        .section-header h3 { font-size: 14px; font-weight: 600; color: #1e3a8a; }
+        .section-body { padding: 16px; }
 
-        .fg { margin-bottom: 14px; }
-        .fg label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+        .fg { margin-bottom: 12px; }
+        .fg label { display: block; font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 5px; }
         .fg input, .fg select, .fg textarea {
             width: 100%; padding: 10px 14px;
             border: 1px solid #d1d5db; border-radius: 8px;
-            font-size: 13px; outline: none;
+            font-size: 14px; outline: none;
         }
         .fg textarea { height: 80px; resize: vertical; }
         .fg input:focus, .fg select:focus { border-color: #1e3a8a; }
@@ -131,21 +131,20 @@
 
         .upload-zone {
             border: 2px dashed #d1d5db; border-radius: 10px;
-            padding: 30px; text-align: center;
-            cursor: pointer; margin-bottom: 14px;
-            transition: border-color 0.2s;
+            padding: 24px 16px; text-align: center;
+            cursor: pointer; margin-bottom: 12px;
         }
         .upload-zone:hover { border-color: #1e3a8a; background: #eff6ff; }
-        .upload-zone p { font-size: 13px; color: #6b7280; margin-top: 8px; }
+        .upload-zone p { font-size: 12px; color: #6b7280; margin-top: 6px; }
         .upload-zone input { display: none; }
 
         .code-secret {
             background: #f0fdf4; border: 1px solid #bbf7d0;
-            border-radius: 8px; padding: 12px 16px;
-            font-family: monospace; font-size: 15px;
+            border-radius: 8px; padding: 10px 14px;
+            font-family: monospace; font-size: 14px;
             color: #065f46; margin-top: 10px;
             display: flex; justify-content: space-between;
-            align-items: center;
+            align-items: center; flex-wrap: wrap; gap: 8px;
         }
         .btn-copier {
             padding: 6px 12px; background: #1e3a8a;
@@ -155,25 +154,36 @@
 
         .etudiant-item {
             display: flex; align-items: center;
-            padding: 12px 0;
+            padding: 10px 0;
             border-bottom: 1px solid #f3f4f6;
         }
         .etudiant-item:last-child { border-bottom: none; }
         .etudiant-avatar {
-            width: 36px; height: 36px; border-radius: 50%;
+            width: 34px; height: 34px; border-radius: 50%;
             background: #dbeafe; display: flex; align-items: center;
-            justify-content: center; font-size: 16px; margin-right: 12px;
+            justify-content: center; font-size: 16px; margin-right: 10px;
             flex-shrink: 0;
         }
-        .etudiant-nom { font-size: 14px; font-weight: 600; color: #1e3a8a; }
-        .etudiant-info { font-size: 12px; color: #6b7280; margin-top: 2px; }
+        .etudiant-nom { font-size: 13px; font-weight: 600; color: #1e3a8a; }
+        .etudiant-info { font-size: 11px; color: #6b7280; margin-top: 2px; }
 
-        .chargement { text-align: center; padding: 40px; color: #6b7280; font-size: 14px; }
+        .chargement { text-align: center; padding: 30px; color: #6b7280; font-size: 13px; }
 
         .footer {
-            text-align: center; padding: 20px; color: #9ca3af;
-            font-size: 13px; border-top: 1px solid #e5e7eb;
-            background: white; margin-top: 30px;
+            text-align: center; padding: 16px; color: #9ca3af;
+            font-size: 11px; border-top: 1px solid #e5e7eb;
+            background: white; margin-top: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .navbar { padding: 15px 30px; }
+            .navbar h1 { font-size: 18px; }
+            .navbar p { font-size: 13px; }
+            .nav-links button { font-size: 13px; padding: 8px 16px; }
+            .container { margin: 30px auto; padding: 0 20px; }
+            .page-title { font-size: 22px; }
+            .tab { font-size: 13px; padding: 10px 20px; }
+            .login-card { padding: 40px; }
         }
     </style>
 </head>
@@ -181,14 +191,14 @@
 
 <nav class="navbar">
     <div>
-        <h1>⚙️ Espace Administrateur</h1>
-        <p>UFR-SEA Informatique · Promotion P24</p>
+        <h1>⚙️ Espace Admin</h1>
+        <p>UFR-SEA Informatique · P24</p>
     </div>
     <div class="nav-links">
-        <button onclick="window.location='index.html'">🏠 Accueil</button>
-        <button onclick="window.location='emploidutemps.html'">📅 Emploi du temps</button>
-        <button onclick="window.location='cahier.html'">📓 Cahier</button>
-        <button onclick="window.location='cours.html'">📚 Cours</button>
+        <button onclick="window.location='index.html'">🏠</button>
+        <button onclick="window.location='emploidutemps.html'">📅</button>
+        <button onclick="window.location='cahier.html'">📓</button>
+        <button onclick="window.location='cours.html'">📚</button>
     </div>
 </nav>
 
@@ -214,21 +224,20 @@
 <!-- PANNEAU ADMIN -->
 <div class="admin-panel" id="admin-panel">
     <div class="container">
-        <div class="page-title">⚙️ Panneau d'administration</div>
-        <div class="page-subtitle">Gérez votre plateforme UFR-SEA Informatique P24</div>
+        <div class="page-title">⚙️ Administration</div>
+        <div class="page-subtitle">Gérez votre plateforme UFR-SEA P24</div>
 
-        <!-- STATS -->
         <div class="stats-bar">
             <div class="stat">
-                <div class="stat-label">👥 Étudiants inscrits</div>
+                <div class="stat-label">👥 Étudiants</div>
                 <div class="stat-val" id="nb-etudiants">—</div>
             </div>
             <div class="stat">
-                <div class="stat-label">📄 Documents publiés</div>
+                <div class="stat-label">📄 Documents</div>
                 <div class="stat-val" id="nb-docs">—</div>
             </div>
             <div class="stat">
-                <div class="stat-label">📓 Séances enregistrées</div>
+                <div class="stat-label">📓 Séances</div>
                 <div class="stat-val" id="nb-seances">—</div>
             </div>
             <div class="stat">
@@ -237,11 +246,10 @@
             </div>
         </div>
 
-        <!-- ONGLETS -->
         <div class="tabs">
-            <button class="tab active" onclick="afficherOnglet('docs', this)">📄 Cours & Documents</button>
+            <button class="tab active" onclick="afficherOnglet('docs', this)">📄 Cours</button>
             <button class="tab" onclick="afficherOnglet('etudiants', this)">👥 Étudiants</button>
-            <button class="tab" onclick="afficherOnglet('profs', this)">🔑 Codes Professeurs</button>
+            <button class="tab" onclick="afficherOnglet('profs', this)">🔑 Codes Profs</button>
             <button class="tab" onclick="afficherOnglet('annonces', this)">📢 Annonces</button>
         </div>
 
@@ -256,7 +264,7 @@
                     <div class="fg">
                         <label>Matière</label>
                         <select id="upload-matiere">
-                            <option value="">-- Choisissez la matière --</option>
+                            <option value="">-- Choisissez --</option>
                             <option value="ro">Recherche opérationnelle — M. Séré</option>
                             <option value="sda">Structure de données avancée — M. Sawadogo</option>
                             <option value="cn">Calcul numérique — M. Traoré</option>
@@ -273,12 +281,12 @@
                     </div>
                     <div class="fg">
                         <label>Titre du document</label>
-                        <input type="text" id="upload-titre" placeholder="Ex: Cours Chapitre 1 — Introduction" />
+                        <input type="text" id="upload-titre" placeholder="Ex: Cours Chapitre 1" />
                     </div>
                     <div class="fg">
                         <label>Professeur</label>
                         <select id="upload-prof">
-                            <option value="">-- Choisissez le professeur --</option>
+                            <option value="">-- Choisissez --</option>
                             <option>M. Zoinabo Séré</option>
                             <option>M. Léonard W. Sawadogo</option>
                             <option>M. Urbain Traoré</option>
@@ -292,22 +300,22 @@
                         </select>
                     </div>
                     <div class="fg">
-                        <label>Type de document</label>
+                        <label>Type</label>
                         <select id="upload-type">
                             <option value="Cours">📘 Cours</option>
                             <option value="TD">📝 TD / Exercices</option>
                             <option value="TP">💻 TP</option>
-                            <option value="Examen">📋 Examen / Partiel</option>
+                            <option value="Examen">📋 Examen</option>
                         </select>
                     </div>
                     <div class="fg">
                         <label>Fichier PDF</label>
                         <div class="upload-zone" onclick="document.getElementById('fichier-input').click()">
-                            <div style="font-size:36px;">📁</div>
-                            <p>Cliquez ici pour sélectionner un fichier PDF ou Word</p>
+                            <div style="font-size:32px;">📁</div>
+                            <p>Cliquez pour sélectionner un fichier</p>
                             <input type="file" id="fichier-input" accept=".pdf,.doc,.docx" onchange="afficherFichier(this)" />
                         </div>
-                        <div id="fichier-nom" style="font-size:13px; color:#065f46; display:none; padding:8px; background:#f0fdf4; border-radius:8px;"></div>
+                        <div id="fichier-nom" style="font-size:12px; color:#065f46; display:none; padding:8px; background:#f0fdf4; border-radius:8px;"></div>
                     </div>
                     <button class="btn-submit" id="btn-upload" onclick="publierDocument()">⬆️ Publier le document</button>
                 </div>
@@ -319,7 +327,7 @@
             <div class="section-card">
                 <div class="section-header">
                     <span>👥</span>
-                    <h3>Liste des étudiants inscrits</h3>
+                    <h3>Étudiants inscrits</h3>
                 </div>
                 <div class="section-body">
                     <div id="liste-etudiants">
@@ -334,13 +342,13 @@
             <div class="section-card">
                 <div class="section-header">
                     <span>🔑</span>
-                    <h3>Codes secrets des professeurs</h3>
+                    <h3>Codes secrets professeurs</h3>
                 </div>
                 <div class="section-body">
                     <div class="fg">
-                        <label>Sélectionnez un professeur</label>
+                        <label>Professeur</label>
                         <select id="prof-selectionne">
-                            <option value="">-- Choisissez un professeur --</option>
+                            <option value="">-- Choisissez --</option>
                             <option value="Séré">M. Zoinabo Séré</option>
                             <option value="Sawadogo">M. Léonard W. Sawadogo</option>
                             <option value="Traoré">M. Urbain Traoré</option>
@@ -353,21 +361,20 @@
                             <option value="Konkobo">M. Amidou Konkobo</option>
                         </select>
                     </div>
-                    <button class="btn-submit" onclick="genererCode()">🔑 Générer le code secret</button>
-                    <div id="code-genere" style="display:none; margin-top:16px;">
-                        <div style="font-size:13px; color:#374151; margin-bottom:6px; font-weight:600;">Code secret généré :</div>
+                    <button class="btn-submit" onclick="genererCode()">🔑 Générer le code</button>
+                    <div id="code-genere" style="display:none; margin-top:14px;">
+                        <div style="font-size:12px; color:#374151; margin-bottom:6px; font-weight:600;">Code généré :</div>
                         <div class="code-secret">
                             <span id="code-valeur"></span>
                             <button class="btn-copier" onclick="copierCode()">📋 Copier</button>
                         </div>
-                        <div style="font-size:12px; color:#6b7280; margin-top:8px;">⚠️ Partagez ce code uniquement avec le professeur concerné.</div>
+                        <div style="font-size:11px; color:#6b7280; margin-top:6px;">⚠️ Partagez uniquement avec le professeur.</div>
                     </div>
-
-                    <div style="margin-top:24px; border-top:1px solid #e5e7eb; padding-top:20px;">
-                        <div style="font-size:13px; font-weight:600; color:#374151; margin-bottom:10px;">🔐 Code actuel du cahier de texte :</div>
+                    <div style="margin-top:20px; border-top:1px solid #e5e7eb; padding-top:16px;">
+                        <div style="font-size:12px; font-weight:600; color:#374151; margin-bottom:8px;">🔐 Code commun :</div>
                         <div class="code-secret">
                             <span>prof2026</span>
-                            <span style="font-size:11px; color:#6b7280;">Code commun à tous les professeurs</span>
+                            <span style="font-size:11px; color:#6b7280;">Tous les professeurs</span>
                         </div>
                     </div>
                 </div>
@@ -383,27 +390,27 @@
                 </div>
                 <div class="section-body">
                     <div class="fg">
-                        <label>Type d'annonce</label>
+                        <label>Type</label>
                         <select id="annonce-type">
-                            <option value="info">ℹ️ Information générale</option>
-                            <option value="exam">📋 Examen / Partiel</option>
-                            <option value="rendu">📝 Rendu de TP / Devoir</option>
-                            <option value="annulation">❌ Annulation de cours</option>
+                            <option value="info">ℹ️ Information</option>
+                            <option value="exam">📋 Examen</option>
+                            <option value="rendu">📝 Rendu</option>
+                            <option value="annulation">❌ Annulation</option>
                         </select>
                     </div>
                     <div class="fg">
-                        <label>Titre de l'annonce</label>
-                        <input type="text" id="annonce-titre" placeholder="Ex: Partiel Algorithmique — Salle B12" />
+                        <label>Titre</label>
+                        <input type="text" id="annonce-titre" placeholder="Ex: Partiel — Salle B12" />
                     </div>
                     <div class="fg">
-                        <label>Date concernée</label>
+                        <label>Date</label>
                         <input type="date" id="annonce-date" />
                     </div>
                     <div class="fg">
-                        <label>Description détaillée</label>
-                        <textarea id="annonce-desc" placeholder="Donnez les détails importants..."></textarea>
+                        <label>Description</label>
+                        <textarea id="annonce-desc" placeholder="Détails..."></textarea>
                     </div>
-                    <button class="btn-submit" onclick="publierAnnonce()">📢 Publier l'annonce</button>
+                    <button class="btn-submit" onclick="publierAnnonce()">📢 Publier</button>
                 </div>
             </div>
         </div>
@@ -420,7 +427,6 @@
     const ADMIN_EMAIL = "admin@p24.edu";
     const ADMIN_PASSWORD = "Admin@P24#2026";
 
-    // CONNEXION
     function connexionAdmin() {
         const email = document.getElementById('admin-email').value.trim();
         const password = document.getElementById('admin-password').value;
@@ -434,7 +440,6 @@
         }
     }
 
-    // ONGLETS
     function afficherOnglet(nom, btn) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
@@ -443,7 +448,6 @@
         if (nom === 'etudiants') chargerEtudiants();
     }
 
-    // STATS
     async function chargerStats() {
         try {
             const etudiants = await getEtudiants();
@@ -457,13 +461,12 @@
         } catch(e) {}
     }
 
-    // ETUDIANTS
     async function chargerEtudiants() {
         try {
             const etudiants = await getEtudiants();
             const liste = document.getElementById('liste-etudiants');
             if (!etudiants || etudiants.length === 0) {
-                liste.innerHTML = '<div class="chargement">👤 Aucun étudiant inscrit pour le moment.</div>';
+                liste.innerHTML = '<div class="chargement">👤 Aucun étudiant inscrit.</div>';
                 return;
             }
             liste.innerHTML = etudiants.map(e => `
@@ -471,22 +474,21 @@
                     <div class="etudiant-avatar">👤</div>
                     <div>
                         <div class="etudiant-nom">${e.nom}</div>
-                        <div class="etudiant-info">${e.email} · N° ${e.numero}</div>
+                        <div class="etudiant-info">${e.email} · ${e.numero}</div>
                     </div>
                 </div>
             `).join('');
         } catch(e) {
             document.getElementById('liste-etudiants').innerHTML =
-                '<div class="chargement">❌ Erreur de chargement.</div>';
+                '<div class="chargement">❌ Erreur.</div>';
         }
     }
 
-    // UPLOAD DOCUMENT
     function afficherFichier(input) {
         const nom = document.getElementById('fichier-nom');
         if (input.files.length > 0) {
             nom.style.display = 'block';
-            nom.textContent = '✅ Fichier sélectionné : ' + input.files[0].name;
+            nom.textContent = '✅ ' + input.files[0].name;
         }
     }
 
@@ -499,19 +501,19 @@
         const btn = document.getElementById('btn-upload');
 
         if (!matiere || !titre || !prof || !fichier) {
-            alert('⚠️ Veuillez remplir tous les champs et sélectionner un fichier !');
+            alert('⚠️ Remplissez tous les champs !');
             return;
         }
 
         btn.disabled = true;
-        btn.textContent = '⏳ Publication en cours...';
+        btn.textContent = '⏳ Publication...';
 
         try {
             const nomFichier = Date.now() + '_' + fichier.name.replace(/\s/g, '_');
             const urlFichier = await uploadPDF(fichier, nomFichier);
             if (urlFichier) {
                 await ajouterDocument(titre, matiere, type, prof, urlFichier);
-                alert('✅ Document "' + titre + '" publié avec succès !');
+                alert('✅ "' + titre + '" publié !');
                 document.getElementById('upload-matiere').value = '';
                 document.getElementById('upload-titre').value = '';
                 document.getElementById('upload-prof').value = '';
@@ -519,20 +521,19 @@
                 document.getElementById('fichier-nom').style.display = 'none';
                 chargerStats();
             } else {
-                alert('❌ Erreur lors de l\'upload. Vérifiez le bucket Supabase.');
+                alert('❌ Erreur upload !');
             }
         } catch(e) {
-            alert('❌ Erreur : ' + e.message);
+            alert('❌ ' + e.message);
         }
 
         btn.disabled = false;
         btn.textContent = '⬆️ Publier le document';
     }
 
-    // CODES PROFS
     function genererCode() {
         const prof = document.getElementById('prof-selectionne').value;
-        if (!prof) { alert('Veuillez sélectionner un professeur !'); return; }
+        if (!prof) { alert('Choisissez un professeur !'); return; }
         const code = 'PROF-' + prof.toUpperCase().substring(0,3) + '-' +
             Math.random().toString(36).substring(2,7).toUpperCase();
         document.getElementById('code-valeur').textContent = code;
@@ -542,10 +543,9 @@
     function copierCode() {
         const code = document.getElementById('code-valeur').textContent;
         navigator.clipboard.writeText(code);
-        alert('✅ Code copié : ' + code);
+        alert('✅ Copié : ' + code);
     }
 
-    // ANNONCES
     async function publierAnnonce() {
         const titre = document.getElementById('annonce-titre').value.trim();
         const type = document.getElementById('annonce-type').value;
@@ -553,19 +553,19 @@
         const desc = document.getElementById('annonce-desc').value;
 
         if (!titre || !date) {
-            alert('⚠️ Veuillez remplir le titre et la date !');
+            alert('⚠️ Remplissez le titre et la date !');
             return;
         }
 
         try {
             await ajouterAnnonce(titre, type, date, desc);
-            alert('✅ Annonce publiée avec succès !');
+            alert('✅ Annonce publiée !');
             document.getElementById('annonce-titre').value = '';
             document.getElementById('annonce-date').value = '';
             document.getElementById('annonce-desc').value = '';
             chargerStats();
         } catch(e) {
-            alert('❌ Erreur lors de la publication !');
+            alert('❌ Erreur !');
         }
     }
 </script>

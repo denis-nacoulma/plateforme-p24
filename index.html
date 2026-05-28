@@ -10,64 +10,105 @@
 
         .navbar {
             background: #1a56db;
-            padding: 15px 30px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-        .navbar h1 { color: white; font-size: 18px; }
-        .navbar p { color: #bfdbfe; font-size: 13px; }
+        .navbar h1 { color: white; font-size: 15px; }
+        .navbar p { color: #bfdbfe; font-size: 11px; }
+        .navbar button {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .navbar button:hover { background: white; color: #1a56db; }
 
         .hero {
             background: white;
             text-align: center;
-            padding: 60px 20px;
+            padding: 40px 16px;
             border-bottom: 1px solid #e5e7eb;
         }
-        .hero h2 { font-size: 28px; color: #1e3a8a; margin-bottom: 10px; }
-        .hero p { color: #6b7280; font-size: 16px; margin-bottom: 30px; }
+        .hero h2 { font-size: 22px; color: #1e3a8a; margin-bottom: 10px; }
+        .hero p { color: #6b7280; font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
 
         .btn {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 12px 24px;
             border-radius: 8px;
-            font-size: 15px;
+            font-size: 14px;
             cursor: pointer;
             border: none;
             margin: 5px;
+            width: calc(100% - 10px);
+            max-width: 300px;
         }
         .btn-blue { background: #1a56db; color: white; }
         .btn-white { background: white; color: #1a56db; border: 1px solid #1a56db; }
 
         .cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            padding: 40px 30px;
-            max-width: 1000px;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 20px 16px;
+            max-width: 800px;
             margin: auto;
         }
         .card {
             background: white;
             border-radius: 12px;
-            padding: 24px;
+            padding: 16px 12px;
             border: 1px solid #e5e7eb;
             text-align: center;
+            cursor: pointer;
+            transition: box-shadow 0.2s;
         }
-        .card-icon {
-            font-size: 36px;
-            margin-bottom: 12px;
+        .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .card-icon { font-size: 28px; margin-bottom: 8px; }
+        .card h3 { font-size: 13px; color: #1e3a8a; margin-bottom: 6px; }
+        .card p { font-size: 11px; color: #6b7280; line-height: 1.4; }
+
+        .info-bar {
+            background: #1e3a8a;
+            color: white;
+            text-align: center;
+            padding: 12px 16px;
+            font-size: 13px;
+            margin: 0 16px 20px;
+            border-radius: 12px;
         }
-        .card h3 { font-size: 16px; color: #1e3a8a; margin-bottom: 8px; }
-        .card p { font-size: 13px; color: #6b7280; }
 
         .footer {
             text-align: center;
-            padding: 20px;
+            padding: 16px;
             color: #9ca3af;
-            font-size: 13px;
+            font-size: 11px;
             border-top: 1px solid #e5e7eb;
             background: white;
+            margin-top: 20px;
+        }
+
+        /* DESKTOP */
+        @media (min-width: 768px) {
+            .navbar { padding: 15px 30px; }
+            .navbar h1 { font-size: 18px; }
+            .navbar p { font-size: 13px; }
+            .hero { padding: 60px 20px; }
+            .hero h2 { font-size: 28px; }
+            .btn { width: auto; }
+            .cards { grid-template-columns: repeat(4, 1fr); padding: 40px 30px; gap: 20px; }
+            .card { padding: 24px; }
+            .card-icon { font-size: 36px; }
+            .card h3 { font-size: 16px; }
+            .card p { font-size: 13px; }
+            .info-bar { margin: 0 30px 30px; }
         }
     </style>
 </head>
@@ -76,10 +117,10 @@
 <nav class="navbar">
     <div>
         <h1>UFR-SEA Informatique</h1>
-        <p>Université Joseph Ki-Zerbo · Promotion P24</p>
+        <p>Université Joseph Ki-Zerbo · P24</p>
     </div>
     <div>
-        <button class="btn btn-white" onclick="window.location='login.html'">Connexion</button>
+        <button onclick="window.location='login.html'">Connexion</button>
     </div>
 </nav>
 
@@ -90,26 +131,32 @@
     <button class="btn btn-white" onclick="window.location='login.html'">Se connecter</button>
 </div>
 
+<div style="padding: 20px 16px 0;">
+    <div class="info-bar">
+        🎓 Promotion P24 · UFR-SEA Informatique · Université Joseph Ki-Zerbo · Ouagadougou
+    </div>
+</div>
+
 <div class="cards">
-    <div class="card">
+    <div class="card" onclick="window.location='emploidutemps.html'">
         <div class="card-icon">📅</div>
         <h3>Emploi du temps</h3>
-        <p>Consultez le planning de la semaine en cours</p>
+        <p>Consultez le planning de la semaine</p>
     </div>
-    <div class="card">
+    <div class="card" onclick="window.location='cahier.html'">
         <div class="card-icon">📓</div>
         <h3>Cahier de texte</h3>
-        <p>Suivez les séances et la présence des professeurs</p>
+        <p>Suivez les séances des professeurs</p>
     </div>
-    <div class="card">
+    <div class="card" onclick="window.location='cours.html'">
         <div class="card-icon">📚</div>
         <h3>Cours & Exercices</h3>
-        <p>Téléchargez vos PDF et documents de cours</p>
+        <p>Téléchargez vos PDF et documents</p>
     </div>
-    <div class="card">
-        <div class="card-icon">📢</div>
-        <h3>Annonces</h3>
-        <p>Restez informé des examens et événements</p>
+    <div class="card" onclick="window.location='admin.html'">
+        <div class="card-icon">⚙️</div>
+        <h3>Administration</h3>
+        <p>Espace réservé à l'administrateur</p>
     </div>
 </div>
 

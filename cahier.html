@@ -9,91 +9,134 @@
         body { font-family: Arial, sans-serif; background: #f0f4f8; }
         .navbar {
             background: #1a56db;
-            padding: 15px 30px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
         }
-        .navbar h1 { color: white; font-size: 18px; }
-        .navbar p { color: #bfdbfe; font-size: 13px; }
-        .nav-links { display: flex; gap: 10px; }
+        .navbar h1 { color: white; font-size: 15px; }
+        .navbar p { color: #bfdbfe; font-size: 11px; }
+        .nav-links { display: flex; gap: 6px; }
         .nav-links button {
             background: transparent;
             border: 1px solid white;
             color: white;
-            padding: 8px 16px;
+            padding: 6px 10px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 11px;
         }
         .nav-links button:hover { background: white; color: #1a56db; }
-        .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
-        .page-title { font-size: 22px; color: #1e3a8a; margin-bottom: 6px; }
-        .page-subtitle { font-size: 14px; color: #6b7280; margin-bottom: 24px; }
-        .prof-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+
+        .container { max-width: 900px; margin: 16px auto; padding: 0 12px; }
+        .page-title { font-size: 18px; color: #1e3a8a; margin-bottom: 4px; }
+        .page-subtitle { font-size: 12px; color: #6b7280; margin-bottom: 16px; }
+
+        .prof-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
         .prof-tab {
-            padding: 8px 18px; border-radius: 20px;
-            border: 1px solid #d1d5db; background: white;
-            font-size: 13px; cursor: pointer; color: #374151;
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid #d1d5db;
+            background: white;
+            font-size: 11px;
+            cursor: pointer;
+            color: #374151;
         }
         .prof-tab.active { background: #1a56db; color: white; border-color: #1a56db; }
-        .seances { display: flex; flex-direction: column; gap: 16px; }
+
+        .seances { display: flex; flex-direction: column; gap: 12px; }
         .seance-card {
-            background: white; border-radius: 12px;
-            border: 1px solid #e5e7eb; overflow: hidden;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
         }
         .seance-header {
-            display: flex; align-items: center;
+            display: flex;
+            align-items: center;
             justify-content: space-between;
-            padding: 14px 20px;
+            padding: 10px 14px;
             border-bottom: 1px solid #e5e7eb;
             background: #f9fafb;
+            flex-wrap: wrap;
+            gap: 8px;
         }
-        .seance-header-left { display: flex; align-items: center; gap: 12px; }
+        .seance-header-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .seance-date {
             background: #1a56db; color: white;
-            padding: 6px 12px; border-radius: 8px;
-            font-size: 13px; font-weight: 600;
+            padding: 4px 10px; border-radius: 6px;
+            font-size: 11px; font-weight: 600;
         }
-        .seance-prof { font-size: 15px; font-weight: 600; color: #1e3a8a; }
-        .seance-matiere { font-size: 13px; color: #6b7280; }
-        .badge-present { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .seance-prof { font-size: 13px; font-weight: 600; color: #1e3a8a; }
+        .seance-matiere { font-size: 11px; color: #6b7280; }
+        .badge-present { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
         .present { background: #d1fae5; color: #065f46; }
-        .seance-body { padding: 16px 20px; }
-        .seance-body p { font-size: 14px; color: #374151; line-height: 1.6; }
-        .seance-body .label { font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 4px; margin-top: 12px; }
+        .absent { background: #fee2e2; color: #991b1b; }
+
+        .seance-body { padding: 12px 14px; }
+        .seance-body p { font-size: 13px; color: #374151; line-height: 1.6; }
+        .seance-body .label { font-size: 11px; font-weight: 600; color: #6b7280; margin-bottom: 4px; margin-top: 10px; }
+
         .lien-prof {
             background: #eff6ff; border: 1px solid #bfdbfe;
-            border-radius: 12px; padding: 20px; margin-bottom: 24px;
+            border-radius: 12px; padding: 16px; margin-bottom: 16px;
         }
-        .lien-prof h3 { font-size: 15px; color: #1e3a8a; margin-bottom: 8px; }
-        .lien-prof p { font-size: 13px; color: #6b7280; margin-bottom: 12px; }
+        .lien-prof h3 { font-size: 14px; color: #1e3a8a; margin-bottom: 6px; }
+        .lien-prof p { font-size: 12px; color: #6b7280; margin-bottom: 10px; }
         .lien-prof input {
             width: 100%; padding: 10px 14px;
             border: 1px solid #d1d5db; border-radius: 8px;
-            font-size: 14px; margin-bottom: 10px;
+            font-size: 14px; margin-bottom: 10px; outline: none;
         }
-        .btn { padding: 10px 20px; background: #1a56db; color: white; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; }
+        .btn {
+            width: 100%; padding: 10px 20px;
+            background: #1a56db; color: white;
+            border: none; border-radius: 8px;
+            font-size: 14px; cursor: pointer;
+        }
         .btn:hover { background: #1e40af; }
+
         .formulaire-prof {
             background: white; border-radius: 12px;
-            border: 2px solid #1a56db; padding: 24px;
-            margin-bottom: 24px; display: none;
+            border: 2px solid #1a56db; padding: 16px;
+            margin-bottom: 16px; display: none;
         }
-        .formulaire-prof h3 { font-size: 16px; color: #1e3a8a; margin-bottom: 16px; }
-        .form-group { margin-bottom: 14px; }
-        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+        .formulaire-prof h3 { font-size: 15px; color: #1e3a8a; margin-bottom: 14px; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 5px; }
         .form-group input, .form-group textarea, .form-group select {
             width: 100%; padding: 10px 14px;
             border: 1px solid #d1d5db; border-radius: 8px;
-            font-size: 14px; outline: none;
+            font-size: 13px; outline: none;
         }
-        .form-group textarea { height: 100px; resize: vertical; }
+        .form-group textarea { height: 90px; resize: vertical; }
+
         .chargement { text-align: center; padding: 40px; color: #6b7280; font-size: 14px; }
+
         .footer {
-            text-align: center; padding: 20px; color: #9ca3af;
-            font-size: 13px; border-top: 1px solid #e5e7eb;
-            background: white; margin-top: 30px;
+            text-align: center; padding: 16px; color: #9ca3af;
+            font-size: 11px; border-top: 1px solid #e5e7eb;
+            background: white; margin-top: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .navbar { padding: 15px 30px; }
+            .navbar h1 { font-size: 18px; }
+            .navbar p { font-size: 13px; }
+            .nav-links button { font-size: 13px; padding: 8px 16px; }
+            .container { margin: 30px auto; padding: 0 20px; }
+            .page-title { font-size: 22px; }
+            .page-subtitle { font-size: 14px; }
+            .prof-tab { font-size: 13px; padding: 8px 18px; }
+            .seance-prof { font-size: 15px; }
+            .seance-matiere { font-size: 13px; }
         }
     </style>
 </head>
@@ -102,23 +145,23 @@
 <nav class="navbar">
     <div>
         <h1>UFR-SEA Informatique</h1>
-        <p>Université Joseph Ki-Zerbo · Promotion P24</p>
+        <p>Université Joseph Ki-Zerbo · P24</p>
     </div>
     <div class="nav-links">
-        <button onclick="window.location='index.html'">🏠 Accueil</button>
-        <button onclick="window.location='emploidutemps.html'">📅 Emploi du temps</button>
-        <button onclick="window.location='cours.html'">📚 Cours</button>
+        <button onclick="window.location='index.html'">🏠</button>
+        <button onclick="window.location='emploidutemps.html'">📅</button>
+        <button onclick="window.location='cours.html'">📚</button>
     </div>
 </nav>
 
 <div class="container">
     <div class="page-title">📓 Cahier de texte</div>
-    <div class="page-subtitle">Suivi des séances et présence des professeurs · Promotion P24</div>
+    <div class="page-subtitle">Suivi des séances · Promotion P24</div>
 
     <div class="lien-prof">
         <h3>🔐 Espace Professeur</h3>
-        <p>Si vous êtes professeur, entrez votre code secret pour signer le cahier de texte.</p>
-        <input type="password" id="code-prof" placeholder="Entrez votre code secret..." />
+        <p>Entrez votre code secret pour signer le cahier de texte.</p>
+        <input type="password" id="code-prof" placeholder="Code secret..." />
         <button class="btn" onclick="verifierCode()">Accéder au formulaire</button>
     </div>
 
@@ -127,7 +170,7 @@
         <div class="form-group">
             <label>Votre nom</label>
             <select id="prof-nom">
-                <option value="">-- Choisissez votre nom --</option>
+                <option value="">-- Choisissez --</option>
                 <option>M. Zoinabo Séré</option>
                 <option>M. Léonard W. Sawadogo</option>
                 <option>M. Urbain Traoré</option>
@@ -141,9 +184,9 @@
             </select>
         </div>
         <div class="form-group">
-            <label>Matière enseignée</label>
+            <label>Matière</label>
             <select id="prof-matiere">
-                <option value="">-- Choisissez la matière --</option>
+                <option value="">-- Choisissez --</option>
                 <option>Recherche opérationnelle</option>
                 <option>Structure de données avancée</option>
                 <option>Calcul numérique</option>
@@ -159,7 +202,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label>Date de la séance</label>
+            <label>Date</label>
             <input type="date" id="prof-date" />
         </div>
         <div class="form-group">
@@ -174,31 +217,31 @@
         </div>
         <div class="form-group">
             <label>Contenu du cours</label>
-            <textarea id="prof-contenu" placeholder="Décrivez ce qui a été fait pendant la séance..."></textarea>
+            <textarea id="prof-contenu" placeholder="Décrivez la séance..."></textarea>
         </div>
         <div class="form-group">
             <label>Travaux à faire</label>
-            <textarea id="prof-travaux" placeholder="Exercices, TP, devoirs à rendre..."></textarea>
+            <textarea id="prof-travaux" placeholder="Exercices, TP..."></textarea>
         </div>
         <button class="btn" onclick="signerCahier()">✅ Signer et enregistrer</button>
     </div>
 
     <div class="prof-tabs">
         <button class="prof-tab active" onclick="filtrerProf('tous', this)">Tous</button>
-        <button class="prof-tab" onclick="filtrerProf('Séré', this)">M. Séré</button>
-        <button class="prof-tab" onclick="filtrerProf('Sawadogo', this)">M. Sawadogo</button>
-        <button class="prof-tab" onclick="filtrerProf('Traoré', this)">M. Traoré</button>
-        <button class="prof-tab" onclick="filtrerProf('Kaboré', this)">M. Kaboré</button>
-        <button class="prof-tab" onclick="filtrerProf('Sabané', this)">Mme Sabané</button>
-        <button class="prof-tab" onclick="filtrerProf('Zeba', this)">M. Zeba</button>
-        <button class="prof-tab" onclick="filtrerProf('Béré', this)">M. Béré</button>
-        <button class="prof-tab" onclick="filtrerProf('Barra', this)">M. Barra</button>
-        <button class="prof-tab" onclick="filtrerProf('Somda', this)">M. Somda</button>
-        <button class="prof-tab" onclick="filtrerProf('Konkobo', this)">M. Konkobo</button>
+        <button class="prof-tab" onclick="filtrerProf('Séré', this)">Séré</button>
+        <button class="prof-tab" onclick="filtrerProf('Sawadogo', this)">Sawadogo</button>
+        <button class="prof-tab" onclick="filtrerProf('Traoré', this)">Traoré</button>
+        <button class="prof-tab" onclick="filtrerProf('Kaboré', this)">Kaboré</button>
+        <button class="prof-tab" onclick="filtrerProf('Sabané', this)">Sabané</button>
+        <button class="prof-tab" onclick="filtrerProf('Zeba', this)">Zeba</button>
+        <button class="prof-tab" onclick="filtrerProf('Béré', this)">Béré</button>
+        <button class="prof-tab" onclick="filtrerProf('Barra', this)">Barra</button>
+        <button class="prof-tab" onclick="filtrerProf('Somda', this)">Somda</button>
+        <button class="prof-tab" onclick="filtrerProf('Konkobo', this)">Konkobo</button>
     </div>
 
     <div class="seances" id="seances">
-        <div class="chargement">⏳ Chargement des séances...</div>
+        <div class="chargement">⏳ Chargement...</div>
     </div>
 </div>
 
@@ -211,7 +254,6 @@
     const CODE_SECRET = "prof2026";
     let toutesLesSeances = [];
 
-    // Charger les séances depuis Supabase
     async function chargerSeances() {
         try {
             const seances = await getSeances();
@@ -219,14 +261,14 @@
             afficherSeances(seances);
         } catch(e) {
             document.getElementById('seances').innerHTML =
-                '<div class="chargement">❌ Erreur de chargement. Vérifiez votre connexion.</div>';
+                '<div class="chargement">❌ Erreur de chargement.</div>';
         }
     }
 
     function afficherSeances(seances) {
         const container = document.getElementById('seances');
         if (!seances || seances.length === 0) {
-            container.innerHTML = '<div class="chargement">📭 Aucune séance enregistrée pour le moment.</div>';
+            container.innerHTML = '<div class="chargement">📭 Aucune séance enregistrée.</div>';
             return;
         }
         container.innerHTML = seances.map(s => {
@@ -247,9 +289,9 @@
                         <span class="badge-present present">✅ Présent</span>
                     </div>
                     <div class="seance-body">
-                        <div class="label">Contenu du cours :</div>
+                        <div class="label">Contenu :</div>
                         <p>${s.contenu}</p>
-                        <div class="label">Travaux à faire :</div>
+                        <div class="label">Travaux :</div>
                         <p>${s.travaux || 'Aucun'}</p>
                     </div>
                 </div>
@@ -263,7 +305,7 @@
             document.getElementById('formulaire-prof').style.display = 'block';
             alert('Accès autorisé !');
         } else {
-            alert('Code incorrect ! Contactez l\'administrateur.');
+            alert('Code incorrect !');
         }
     }
 
@@ -276,13 +318,13 @@
         const travaux = document.getElementById('prof-travaux').value;
 
         if (!nom || !matiere || !date || !contenu) {
-            alert('Veuillez remplir tous les champs obligatoires !');
+            alert('Veuillez remplir tous les champs !');
             return;
         }
 
         try {
             await ajouterSeance(nom, matiere, date, horaire, contenu, travaux);
-            alert('✅ Séance enregistrée avec succès !');
+            alert('✅ Séance enregistrée !');
             document.getElementById('formulaire-prof').style.display = 'none';
             document.getElementById('prof-nom').value = '';
             document.getElementById('prof-matiere').value = '';
@@ -291,7 +333,7 @@
             document.getElementById('prof-travaux').value = '';
             chargerSeances();
         } catch(e) {
-            alert('❌ Erreur lors de l\'enregistrement !');
+            alert('❌ Erreur !');
         }
     }
 
@@ -301,12 +343,10 @@
         if (prof === 'tous') {
             afficherSeances(toutesLesSeances);
         } else {
-            const filtrees = toutesLesSeances.filter(s => s.professeur.includes(prof));
-            afficherSeances(filtrees);
+            afficherSeances(toutesLesSeances.filter(s => s.professeur.includes(prof)));
         }
     }
 
-    // Charger au démarrage
     chargerSeances();
 </script>
 
